@@ -713,6 +713,167 @@
             padding: 20px;
         }
 
+        /* 活动介绍模块样式 */
+        .intro-content {
+            text-align: center;
+        }
+
+        .prize-showcase {
+            margin-bottom: 30px;
+        }
+
+        .prize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .prize-item-showcase {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .prize-item-showcase:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .prize-item-showcase.common {
+            border-color: #6c757d;
+        }
+
+        .prize-item-showcase.rare {
+            border-color: #007bff;
+            background: rgba(0,123,255,0.1);
+        }
+
+        .prize-item-showcase.epic {
+            border-color: #6f42c1;
+            background: rgba(111,66,193,0.1);
+        }
+
+        .prize-item-showcase.legendary {
+            border-color: #fd7e14;
+            background: rgba(253,126,20,0.1);
+        }
+
+        .prize-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .prize-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .prize-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            color: #ccc;
+        }
+
+        .activity-rules {
+            text-align: left;
+        }
+
+        .rules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            color: #fff;
+        }
+
+        .rule-icon {
+            font-size: 1.2rem;
+            min-width: 24px;
+        }
+
+        /* 最近中奖记录样式 */
+        .winners-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .winner-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .winner-item:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateX(5px);
+        }
+
+        .winner-avatar {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .winner-info {
+            flex: 1;
+        }
+
+        .winner-name {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        .winner-prize {
+            color: #ffd700;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+
+        .winner-prize.common {
+            color: #6c757d;
+        }
+
+        .winner-prize.rare {
+            color: #007bff;
+        }
+
+        .winner-prize.epic {
+            color: #6f42c1;
+        }
+
+        .winner-prize.legendary {
+            color: #fd7e14;
+        }
+
+        .winner-time {
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+
         /* Toast提示样式 */
         .toast {
             position: fixed;
@@ -761,6 +922,68 @@
                             <button class="verify-btn" onclick="verifyCode()">验证</button>
                         </div>
                         <div class="code-status" id="codeStatus"></div>
+                    </div>
+                </div>
+
+                <!-- 新增：活动介绍模块 -->
+                <div class="module intro-module" id="introModule">
+                    <h2 class="module-title">🎁 活动介绍</h2>
+                    <div class="intro-content">
+                        <div class="prize-showcase">
+                            <h3 style="color: #ffd700; margin-bottom: 15px;">🏆 丰厚奖品等你来拿</h3>
+                            <div class="prize-grid">
+                                <div class="prize-item-showcase common">
+                                    <div class="prize-icon">💰</div>
+                                    <div class="prize-name">金币奖励</div>
+                                    <div class="prize-desc">10-500金币</div>
+                                </div>
+                                <div class="prize-item-showcase rare">
+                                    <div class="prize-icon">💎</div>
+                                    <div class="prize-name">稀有道具</div>
+                                    <div class="prize-desc">珍贵稀有</div>
+                                </div>
+                                <div class="prize-item-showcase epic">
+                                    <div class="prize-icon">🌟</div>
+                                    <div class="prize-name">史诗道具</div>
+                                    <div class="prize-desc">超值奖励</div>
+                                </div>
+                                <div class="prize-item-showcase legendary">
+                                    <div class="prize-icon">👑</div>
+                                    <div class="prize-name">传说道具</div>
+                                    <div class="prize-desc">顶级奖励</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-rules">
+                            <h3 style="color: #ffd700; margin: 20px 0 15px 0;">📋 抽奖规则</h3>
+                            <div class="rules-list">
+                                <div class="rule-item">
+                                    <span class="rule-icon">🎯</span>
+                                    <span>单次抽奖：20金币</span>
+                                </div>
+                                <div class="rule-item">
+                                    <span class="rule-icon">🎁</span>
+                                    <span>五连抽：90金币（更划算）</span>
+                                </div>
+                                <div class="rule-item">
+                                    <span class="rule-icon">🏆</span>
+                                    <span>稀有道具概率更高</span>
+                                </div>
+                                <div class="rule-item">
+                                    <span class="rule-icon">📱</span>
+                                    <span>支持移动端，随时随地抽奖</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新增：最近中奖记录 -->
+                <div class="module recent-winners-module" id="recentWinnersModule">
+                    <h2 class="module-title">🏅 最近中奖</h2>
+                    <div class="winners-content">
+                        <!-- 动态生成中奖记录 -->
                     </div>
                 </div>
 
@@ -831,6 +1054,11 @@
         // 页面加载时自动验证缓存中的兑换码
         window.addEventListener('load', function() {
             autoVerifyCachedCode();
+            // 初始化最近中奖记录
+            updateRecentWinners();
+            
+            // 每1分钟更新一次中奖记录
+            setInterval(updateRecentWinners, 60000);
         });
 
         // 奖品配置
@@ -1423,8 +1651,10 @@
         }
 
         function showVerifiedState() {
-            // 隐藏兑换码模块
+            // 隐藏兑换码模块和介绍模块
             document.getElementById('codeModule').style.display = 'none';
+            document.getElementById('introModule').style.display = 'none';
+            document.getElementById('recentWinnersModule').style.display = 'none';
             
             // 显示验证后的模块
             document.getElementById('userModule').style.display = 'block';
@@ -1450,8 +1680,10 @@
         }
 
         function showUnverifiedState() {
-            // 显示兑换码模块
+            // 显示兑换码模块和介绍模块
             document.getElementById('codeModule').style.display = 'block';
+            document.getElementById('introModule').style.display = 'block';
+            document.getElementById('recentWinnersModule').style.display = 'block';
             
             // 隐藏验证后的模块
             document.getElementById('userModule').style.display = 'none';
@@ -1489,6 +1721,86 @@
 
         // 初始化
         updateCoins();
+
+        // 动态中奖记录数据生成
+        const surnames = ['张', '李', '王', '刘', '陈', '赵', '孙', '周', '吴', '郑', '钱', '冯', '朱', '秦', '许', '何', '吕', '施', '马', '方'];
+        const prizeOptions = [
+            { name: "10金币", rarity: "common" },
+            { name: "20金币", rarity: "common" },
+            { name: "50金币", rarity: "rare" },
+            { name: "80金币", rarity: "rare" },
+            { name: "100金币", rarity: "rare" },
+            { name: "150金币", rarity: "rare" },
+            { name: "200金币", rarity: "rare" },
+            { name: "史诗道具", rarity: "epic" },
+            { name: "稀有道具", rarity: "rare" },
+            { name: "传说道具", rarity: "legendary" }
+        ];
+
+        // 生成随机中奖记录
+        function generateRandomWinners() {
+            const winners = [];
+            const usedNames = new Set();
+            
+            for (let i = 0; i < 3; i++) {
+                // 生成随机用户名
+                let randomName;
+                do {
+                    const surname = surnames[Math.floor(Math.random() * surnames.length)];
+                    randomName = surname + '**';
+                } while (usedNames.has(randomName));
+                usedNames.add(randomName);
+                
+                // 随机选择奖品
+                const randomPrize = prizeOptions[Math.floor(Math.random() * prizeOptions.length)];
+                
+                // 生成随机时间（1-60分钟前）
+                const minutesAgo = Math.floor(Math.random() * 60) + 1;
+                const timeText = `${minutesAgo}分钟前`;
+                
+                winners.push({
+                    name: randomName,
+                    prize: randomPrize.name,
+                    time: timeText,
+                    rarity: randomPrize.rarity
+                });
+            }
+            
+            // 按时间排序（时间数字从小到大）
+            return winners.sort((a, b) => {
+                const aMinutes = parseInt(a.time.match(/(\d+)/)[1]);
+                const bMinutes = parseInt(b.time.match(/(\d+)/)[1]);
+                return aMinutes - bMinutes;
+            });
+        }
+
+        // 更新最近中奖记录显示
+        function updateRecentWinners() {
+            const winnersContainer = document.getElementById('recentWinnersModule');
+            if (!winnersContainer) return;
+
+            const winnersContent = winnersContainer.querySelector('.winners-content');
+            if (!winnersContent) return;
+
+            const randomWinners = generateRandomWinners();
+            
+            let html = '';
+            randomWinners.forEach(winner => {
+                const rarityClass = winner.rarity || 'common';
+                html += `
+                    <div class="winner-item">
+                        <div class="winner-avatar">👤</div>
+                        <div class="winner-info">
+                            <div class="winner-name">${winner.name}</div>
+                            <div class="winner-prize ${rarityClass}">获得 ${winner.prize}</div>
+                            <div class="winner-time">${winner.time}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            winnersContent.innerHTML = html;
+        }
 
         // Toast提示函数
         function showToast(message, type = 'info', duration = 3000) {
