@@ -5,51 +5,185 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>抽奖系统</title>
     <style>
-        * {
+        body {
+            font-family: 'Segoe UI', '微软雅黑', Arial, sans-serif;
+            background: #10131a;
+            min-height: 100vh;
+            color: #fff;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            line-height: 1.6;
         }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-        }
-
         .container {
-            text-align: center;
-            max-width: 800px;
-            padding: 20px;
-            width: 100%;
-            box-sizing: border-box;
-            position: relative;
-            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
         }
-
+        .hero-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
         .title {
-            font-size: 3.5rem;
-            margin-bottom: 3rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #00d4ff, #0099cc, #00d4ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-weight: 900;
+            letter-spacing: -2px;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 18px;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+            padding: 40px 32px;
+            margin: 32px auto;
+            max-width: 900px;
+            width: 100%;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: #00d4ff;
+            text-align: center;
             font-weight: bold;
-            animation: titleGlow 3s ease-in-out infinite alternate;
+            letter-spacing: 1px;
         }
 
-        @keyframes titleGlow {
-            from {
-                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
-            }
-            to {
-                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
-            }
+        .lottery-btn, .verify-btn, .button-main {
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 16px 36px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            transition: all 0.2s;
+            cursor: pointer;
+            margin: 0 8px;
+        }
+        .lottery-btn.ten-draw {
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            color: #333;
+        }
+        .lottery-btn:hover, .verify-btn:hover, .button-main:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 6px 24px rgba(0,198,255,0.18);
+        }
+        .user-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .user-simple {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .username {
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .coins {
+            color: #00d4ff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .module {
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
+            border: none;
+            min-height: unset;
+            margin-bottom: 0;
+        }
+        .lottery-module, .draw-module, .prizes-module, .code-module, .intro-module, .recent-winners-module, .user-info-module {
+            margin-bottom: 2.5rem;
+        }
+        .prizes-list, .winners-content {
+            margin-top: 1.5rem;
+        }
+        .feature-card, .earn-method, .stat-item, .prize-item-showcase, .prize-item, .winner-item {
+            background: rgba(255,255,255,0.13);
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+            padding: 28px 18px;
+            border: none;
+        }
+        .feature-title, .earn-title {
+            color: #00d4ff;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .feature-icon, .earn-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        .prize-item-showcase {
+            border: 2px solid #00d4ff;
+            background: rgba(255,255,255,0.13);
+        }
+        .prize-rarity.common { background: #6c757d; color: #fff; }
+        .prize-rarity.rare { background: #00d4ff; color: #fff; }
+        .prize-rarity.epic { background: #6f42c1; color: #fff; }
+        .prize-rarity.legendary { background: #ffd700; color: #333; }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .stat-label {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+        }
+        /* 响应式 */
+        @media (max-width: 900px) {
+            .section-card { padding: 28px 8px; }
+        }
+        @media (max-width: 600px) {
+            .title { font-size: 2.2rem; }
+            .section-card { padding: 12px 2px; margin: 16px 0; }
+            .hero-section { padding: 60px 5px 30px; }
         }
 
         .lottery-buttons {
@@ -71,9 +205,7 @@
         .lottery-module {
             margin-bottom: 2rem;
             min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+       
         }
 
         .lottery-module[style*="display: none"] {
@@ -163,6 +295,44 @@
 
         /* 移动端适配 */
         @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 15px 40px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .earn-methods {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
             .cards-container {
                 gap: 8px;
                 max-width: 100%;
@@ -197,13 +367,6 @@
                 flex-wrap: nowrap;
             }
             
-
-            
-            .title {
-                font-size: 2.5rem;
-                margin-bottom: 2rem;
-            }
-            
             .module-title {
                 font-size: 1.5rem;
                 margin-bottom: 1.5rem;
@@ -211,6 +374,13 @@
             
             .container {
                 padding: 15px;
+            }
+            
+            .content-section,
+            .features-section,
+            .how-to-earn-section,
+            .stats-section {
+                padding: 40px 15px;
             }
         }
 
@@ -355,6 +525,7 @@
         .loading {
             display: none;
             margin: 2rem 0;
+            text-align: center;
         }
 
         .loading.active {
@@ -461,7 +632,7 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
         .coins {
-            color: #ffd700;
+            color: #00d4ff;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
@@ -474,6 +645,142 @@
             border: 1px solid rgba(255,255,255,0.2);
             min-height: 120px;
             margin-bottom: 2rem;
+        }
+
+        .content-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .features-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .how-to-earn-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ffd700;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .feature-desc {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+        }
+
+        .earn-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .earn-method {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .earn-method:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .earn-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .earn-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .earn-desc {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .stats-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
         }
 
         .module-title {
@@ -545,6 +852,46 @@
 
         /* 超小屏幕适配 */
         @media (max-width: 480px) {
+            .hero-section {
+                padding: 40px 10px 30px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .feature-card,
+            .earn-method {
+                padding: 20px;
+            }
+            
+            .feature-icon,
+            .earn-icon {
+                font-size: 2rem;
+            }
+            
+            .feature-title,
+            .earn-title {
+                font-size: 1.2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
             .cards-container {
                 gap: 6px;
                 padding: 0 10px;
@@ -570,10 +917,6 @@
             .lottery-buttons-after {
                 gap: 10px;
                 flex-wrap: nowrap;
-            }
-            
-            .title {
-                font-size: 2rem;
             }
             
             .prize-item {
@@ -603,6 +946,13 @@
             .user-simple {
                 font-size: 0.9rem;
                 gap: 12px;
+            }
+            
+            .content-section,
+            .features-section,
+            .how-to-earn-section,
+            .stats-section {
+                padding: 30px 10px;
             }
         }
 
@@ -910,138 +1260,257 @@
     </style>
 </head>
 <body>
-            <div class="container">
-                <h1 class="title">🎯 感恩回馈 惊喜不停</h1>
-                
-                <!-- 模块1：兑换码模块 -->
-                <div class="module code-module" id="codeModule">
-                    <h2 class="module-title">🔑 兑换码验证</h2>
-                    <div class="code-section">
-                        <div class="code-input">
-                            <input type="text" id="lotteryCode" placeholder="请输入抽奖码" maxlength="20">
-                            <button class="verify-btn" onclick="verifyCode()">验证</button>
-                        </div>
-                        <div class="code-status" id="codeStatus"></div>
-                    </div>
-                </div>
-
-                <!-- 新增：活动介绍模块 -->
-                <div class="module intro-module" id="introModule">
-                    <h2 class="module-title">🎁 活动介绍</h2>
-                    <div class="intro-content">
-                        <div class="prize-showcase">
-                            <h3 style="color: #ffd700; margin-bottom: 15px;">🏆 丰厚奖品等你来拿</h3>
-                            <div class="prize-grid">
-                                <div class="prize-item-showcase common">
-                                    <div class="prize-icon">💰</div>
-                                    <div class="prize-name">金币奖励</div>
-                                    <div class="prize-desc">10-500金币</div>
-                                </div>
-                                <div class="prize-item-showcase rare">
-                                    <div class="prize-icon">💎</div>
-                                    <div class="prize-name">稀有道具</div>
-                                    <div class="prize-desc">珍贵稀有</div>
-                                </div>
-                                <div class="prize-item-showcase epic">
-                                    <div class="prize-icon">🌟</div>
-                                    <div class="prize-name">史诗道具</div>
-                                    <div class="prize-desc">超值奖励</div>
-                                </div>
-                                <div class="prize-item-showcase legendary">
-                                    <div class="prize-icon">👑</div>
-                                    <div class="prize-name">传说道具</div>
-                                    <div class="prize-desc">顶级奖励</div>
-                                </div>
+            <!-- 英雄区域 -->
+            <div class="hero-section">
+                <div class="container">
+                    <h1 class="title">🎯 感恩回馈 惊喜不停</h1>
+                    <p class="subtitle">参与游戏，赢取丰厚奖励！每日抽奖，惊喜不断，金币道具等你来拿！</p>
+                    
+                    <!-- 兑换码模块 -->
+                    <div class="module code-module" id="codeModule">
+                        <h2 class="section-title">🔑 兑换码验证</h2>
+                        <div class="code-section">
+                            <div class="code-input">
+                                <input type="text" id="lotteryCode" placeholder="请输入抽奖码" maxlength="20">
+                                <button class="verify-btn" onclick="verifyCode()">验证</button>
                             </div>
-                        </div>
-                        
-                        <div class="activity-rules">
-                            <h3 style="color: #ffd700; margin: 20px 0 15px 0;">📋 抽奖规则</h3>
-                            <div class="rules-list">
-                                <div class="rule-item">
-                                    <span class="rule-icon">🎯</span>
-                                    <span>单次抽奖：20金币</span>
-                                </div>
-                                <div class="rule-item">
-                                    <span class="rule-icon">🎁</span>
-                                    <span>五连抽：90金币（更划算）</span>
-                                </div>
-                                <div class="rule-item">
-                                    <span class="rule-icon">🏆</span>
-                                    <span>稀有道具概率更高</span>
-                                </div>
-                                <div class="rule-item">
-                                    <span class="rule-icon">📱</span>
-                                    <span>支持移动端，随时随地抽奖</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 新增：最近中奖记录 -->
-                <div class="module recent-winners-module" id="recentWinnersModule">
-                    <h2 class="module-title">🏅 最近中奖</h2>
-                    <div class="winners-content">
-                        <!-- 动态生成中奖记录 -->
-                    </div>
-                </div>
-
-                <!-- 模块2：个人信息模块 -->
-                <div class="user-info" id="userModule" style="display: none;">
-                    <div class="user-simple">
-                        <span class="username" id="username">用户名</span>
-                        <span class="coins">🪙 <span id="coins">0</span></span>
-                    </div>
-                </div>
-
-                <!-- 模块3：抽奖按钮模块 -->
-                <div class="module lottery-module" id="lotteryModule" style="display: none;">
-                    <h2 class="module-title">🎯 开始抽奖</h2>
-                    <div class="lottery-buttons" id="lotteryButtons">
-                        <button class="lottery-btn" onclick="startLottery(1)">
-                            <span style="font-size: 1.3rem;">🎯</span>
-                            <small style="opacity: 0.7;">20金币/1次</small>
-                        </button>
-                        <button class="lottery-btn ten-draw" onclick="startLottery(5)">
-                            <span style="font-size: 1.3rem;">🎁</span>
-                            <small style="opacity: 0.7;">90金币/5次</small>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 模块4：抽奖区域 -->
-                <div class="module draw-module" id="drawModule" style="display: none;">
-<!--                    <h2 class="module-title">🎰 抽奖结果</h2>-->
-                    <div class="lottery-area" id="lotteryArea">
-                        <div class="loading" id="loading">
-                            <div class="spinner"></div>
-                            <div class="loading-text">正在抽奖中...</div>
-                        </div>
-                                            <div class="cards-container" id="cardsContainer"></div>
-                    <div class="lottery-buttons-after" id="lotteryButtonsAfter" style="display: none;">
-                        <button class="lottery-btn" onclick="startLottery(1)">
-                            <span style="font-size: 1.3rem;">🎯</span>
-                            <small style="opacity: 0.7;">20金币/1次</small>
-                        </button>
-                        <button class="lottery-btn ten-draw" onclick="startLottery(5)">
-                            <span style="font-size: 1.3rem;">🎁</span>
-                            <small style="opacity: 0.7;">90金币/5次</small>
-                        </button>
-                    </div>
-                    </div>
-                </div>
-
-                <!-- 模块5：我的奖品列表 -->
-                <div class="module prizes-module" id="prizesModule" style="display: none;">
-                    <h2 class="module-title">🏆 我的奖品</h2>
-                    <div class="prizes-section">
-                        <div class="prizes-list" id="prizesList">
-                            <div class="loading-text">正在加载奖品列表...</div>
+                            <div class="code-status" id="codeStatus"></div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- 用户功能区域 -->
+            <section class="section-card" id="userSection" style="display: none;">
+                <div class="container">
+                    <!-- 个人信息模块 -->
+                    <div class="module user-info-module" id="userModule">
+                        <h2 class="section-title">👤 我的信息</h2>
+                        <div class="user-info">
+                            <div class="user-simple">
+                                <span class="username" id="username">用户名</span>
+                                <span class="coins">🪙 <span id="coins">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 抽奖按钮模块 -->
+                    <div class="module lottery-module" id="lotteryModule">
+                        <h2 class="section-title">🎯 开始抽奖</h2>
+                        <div class="lottery-buttons" id="lotteryButtons">
+                            <button class="lottery-btn" onclick="startLottery(1)">
+                                <span style="font-size: 1.3rem;">🎯</span>
+                                <small style="opacity: 0.7;">20金币/1次</small>
+                            </button>
+                            <button class="lottery-btn ten-draw" onclick="startLottery(5)">
+                                <span style="font-size: 1.3rem;">🎁</span>
+                                <small style="opacity: 0.7;">90金币/5次</small>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 抽奖区域 -->
+                    <div class="module draw-module" id="drawModule" style="display: none;">
+                        <h2 class="section-title">🎉 抽奖结果</h2>
+                        <div class="lottery-area" id="lotteryArea">
+                            <div class="loading" id="loading">
+                                <div class="spinner"></div>
+                                <div class="loading-text">正在抽奖中...</div>
+                            </div>
+                            <div class="cards-container" id="cardsContainer"></div>
+                            <div class="lottery-buttons-after" id="lotteryButtonsAfter" style="display: none;">
+                                <button class="lottery-btn" onclick="startLottery(1)">
+                                    <span style="font-size: 1.3rem;">🎯</span>
+                                    <small style="opacity: 0.7;">20金币/1次</small>
+                                </button>
+                                <button class="lottery-btn ten-draw" onclick="startLottery(5)">
+                                    <span style="font-size: 1.3rem;">🎁</span>
+                                    <small style="opacity: 0.7;">90金币/5次</small>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 我的奖品列表 -->
+                    <div class="module prizes-module" id="prizesModule">
+                        <h2 class="section-title">🏆 我的奖品</h2>
+                        <div class="prizes-section">
+                            <div class="prizes-list" id="prizesList">
+                                <div class="loading-text">正在加载奖品列表...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 活动介绍区域 -->
+            <section class="section-card">
+                <div class="container">
+                    <div class="module intro-module" id="introModule">
+                        <h2 class="section-title">🎁 活动介绍</h2>
+                        <div class="intro-content">
+                            <div class="prize-showcase">
+                                <h3 style="color: #ffd700; margin-bottom: 15px;">🏆 丰厚奖品等你来拿</h3>
+                                <div class="prize-grid">
+                                    <div class="prize-item-showcase common">
+                                        <div class="prize-icon">💰</div>
+                                        <div class="prize-name">金币奖励</div>
+                                        <div class="prize-desc">10-500金币</div>
+                                    </div>
+                                    <div class="prize-item-showcase rare">
+                                        <div class="prize-icon">💎</div>
+                                        <div class="prize-name">稀有道具</div>
+                                        <div class="prize-desc">珍贵稀有</div>
+                                    </div>
+                                    <div class="prize-item-showcase epic">
+                                        <div class="prize-icon">🌟</div>
+                                        <div class="prize-name">史诗道具</div>
+                                        <div class="prize-desc">超值奖励</div>
+                                    </div>
+                                    <div class="prize-item-showcase legendary">
+                                        <div class="prize-icon">👑</div>
+                                        <div class="prize-name">传说道具</div>
+                                        <div class="prize-desc">顶级奖励</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-rules">
+                                <h3 style="color: #ffd700; margin: 20px 0 15px 0;">📋 抽奖规则</h3>
+                                <div class="rules-list">
+                                    <div class="rule-item">
+                                        <span class="rule-icon">🎯</span>
+                                        <span>单次抽奖：20金币</span>
+                                    </div>
+                                    <div class="rule-item">
+                                        <span class="rule-icon">🎁</span>
+                                        <span>五连抽：90金币（更划算）</span>
+                                    </div>
+                                    <div class="rule-item">
+                                        <span class="rule-icon">🏆</span>
+                                        <span>稀有道具概率更高</span>
+                                    </div>
+                                    <div class="rule-item">
+                                        <span class="rule-icon">📱</span>
+                                        <span>支持移动端，随时随地抽奖</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 最近中奖记录 -->
+                    <div class="module recent-winners-module" id="recentWinnersModule">
+                        <h2 class="module-title">🏅 最近中奖</h2>
+                        <div class="winners-content">
+                            <!-- 动态生成中奖记录 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 功能特色区域 -->
+            <section class="section-card" id="features-section">
+                <div class="container">
+                    <h2 class="section-title">🎮 游戏特色</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <span class="feature-icon">⚔️</span>
+                            <h3 class="feature-title">激烈对战</h3>
+                            <p class="feature-desc">参与多人对战，展现你的战斗技巧，击败对手获得金币奖励。每场战斗都有机会获得丰厚奖励！</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🏆</span>
+                            <h3 class="feature-title">排行榜系统</h3>
+                            <p class="feature-desc">挑战排行榜，与全服玩家竞争，登上巅峰位置。排名越高，奖励越丰厚！</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🎁</span>
+                            <h3 class="feature-title">每日奖励</h3>
+                            <p class="feature-desc">每日登录游戏，完成日常任务，即可获得金币、道具等丰厚奖励，让你每天都有惊喜！</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🌟</span>
+                            <h3 class="feature-title">稀有道具</h3>
+                            <p class="feature-desc">收集稀有道具，提升角色实力，在战斗中占据优势。稀有道具不仅实用，更是身份的象征！</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">👥</span>
+                            <h3 class="feature-title">公会系统</h3>
+                            <p class="feature-desc">加入公会，与志同道合的玩家一起战斗，参与公会活动，获得专属奖励和荣誉！</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🎯</span>
+                            <h3 class="feature-title">抽奖系统</h3>
+                            <p class="feature-desc">使用金币参与抽奖，有机会获得稀有道具、大量金币等丰厚奖励，让每次抽奖都充满期待！</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 如何获取金币区域 -->
+            <section class="section-card" id="how-to-earn-section">
+                <div class="container">
+                    <h2 class="section-title">💰 如何获取金币</h2>
+                    <div class="earn-methods">
+                        <div class="earn-method">
+                            <span class="earn-icon">⚔️</span>
+                            <h3 class="earn-title">参与对战</h3>
+                            <p class="earn-desc">每场战斗胜利可获得10-50金币，连胜还有额外奖励！击败强敌获得更多金币。</p>
+                        </div>
+                        <div class="earn-method">
+                            <span class="earn-icon">📅</span>
+                            <h3 class="earn-title">每日任务</h3>
+                            <p class="earn-desc">完成每日任务可获得20-100金币，任务简单易完成，每天都有稳定收入！</p>
+                        </div>
+                        <div class="earn-method">
+                            <span class="earn-icon">🏆</span>
+                            <h3 class="earn-title">排行榜奖励</h3>
+                            <p class="earn-desc">登上排行榜前100名，每周可获得100-1000金币奖励，排名越高奖励越丰厚！</p>
+                        </div>
+                        <div class="earn-method">
+                            <span class="earn-icon">🎁</span>
+                            <h3 class="earn-title">活动奖励</h3>
+                            <p class="earn-desc">参与游戏内各种活动，完成活动目标可获得大量金币和稀有道具奖励！</p>
+                        </div>
+                        <div class="earn-method">
+                            <span class="earn-icon">👥</span>
+                            <h3 class="earn-title">公会贡献</h3>
+                            <p class="earn-desc">为公会做出贡献，参与公会战，可获得公会专属金币奖励和荣誉勋章！</p>
+                        </div>
+                        <div class="earn-method">
+                            <span class="earn-icon">🎯</span>
+                            <h3 class="earn-title">成就系统</h3>
+                            <p class="earn-desc">完成各种成就，解锁成就奖励，获得大量金币和稀有道具，展示你的实力！</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 数据统计区域 -->
+            <section class="section-card" id="stats-section">
+                <div class="container">
+                    <h2 class="section-title">📊 游戏数据</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">50万+</span>
+                            <div class="stat-label">注册玩家</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">1000万+</span>
+                            <div class="stat-label">总对战次数</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">500万+</span>
+                            <div class="stat-label">发放金币</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">99.9%</span>
+                            <div class="stat-label">玩家满意度</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
 
     <script>
         let currentCoins = 0;
@@ -1651,44 +2120,33 @@
         }
 
         function showVerifiedState() {
-            // 隐藏兑换码模块和介绍模块
+            // 只隐藏兑换码验证模块
             document.getElementById('codeModule').style.display = 'none';
-            document.getElementById('introModule').style.display = 'none';
-            document.getElementById('recentWinnersModule').style.display = 'none';
             
-            // 显示验证后的模块
-            document.getElementById('userModule').style.display = 'block';
-            document.getElementById('lotteryModule').style.display = 'block';
-            document.getElementById('prizesModule').style.display = 'block';
+            // 显示用户功能区域
+            document.getElementById('userSection').style.display = 'block';
             
             // 自动加载奖品列表
             loadMyPrizes();
             
             // 添加淡入动画
-            const modules = ['userModule', 'lotteryModule', 'prizesModule'];
-            modules.forEach(moduleId => {
-                const module = document.getElementById(moduleId);
-                module.style.opacity = '0';
-                module.style.transform = 'translateY(20px)';
-                module.style.transition = 'all 0.5s ease';
-                
-                setTimeout(() => {
-                    module.style.opacity = '1';
-                    module.style.transform = 'translateY(0)';
-                }, 100);
-            });
+            const userSection = document.getElementById('userSection');
+            userSection.style.opacity = '0';
+            userSection.style.transform = 'translateY(20px)';
+            userSection.style.transition = 'all 0.5s ease';
+            
+            setTimeout(() => {
+                userSection.style.opacity = '1';
+                userSection.style.transform = 'translateY(0)';
+            }, 100);
         }
 
         function showUnverifiedState() {
-            // 显示兑换码模块和介绍模块
+            // 显示兑换码验证模块
             document.getElementById('codeModule').style.display = 'block';
-            document.getElementById('introModule').style.display = 'block';
-            document.getElementById('recentWinnersModule').style.display = 'block';
             
-            // 隐藏验证后的模块
-            document.getElementById('userModule').style.display = 'none';
-            document.getElementById('lotteryModule').style.display = 'none';
-            document.getElementById('prizesModule').style.display = 'none';
+            // 隐藏用户功能区域
+            document.getElementById('userSection').style.display = 'none';
         }
 
         function savePrize(prize) {
