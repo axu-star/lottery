@@ -989,6 +989,17 @@
                             <span class="coins">🪙 <span id="coins">0</span></span>
                         </div>
                     </div>
+
+                    <div class="lottery-buttons" id="lotteryButtons">
+                        <button class="lottery-btn" onclick="startLottery(1)">
+                            <span style="font-size: 1.3rem;">🎯</span>
+                            <small style="opacity: 0.7;">20金币/1次</small>
+                        </button>
+                        <button class="lottery-btn ten-draw" onclick="startLottery(5)">
+                            <span style="font-size: 1.3rem;">🎁</span>
+                            <small style="opacity: 0.7;">90金币/5次</small>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -999,19 +1010,7 @@
         <div class="container">
             
             <!-- 抽奖按钮模块 -->
-            <div class="module lottery-module" id="lotteryModule">
-                <h2 class="section-title">🎯 开始抽奖</h2>
-                <div class="lottery-buttons" id="lotteryButtons">
-                    <button class="lottery-btn" onclick="startLottery(1)">
-                        <span style="font-size: 1.3rem;">🎯</span>
-                        <small style="opacity: 0.7;">20金币/1次</small>
-                    </button>
-                    <button class="lottery-btn ten-draw" onclick="startLottery(5)">
-                        <span style="font-size: 1.3rem;">🎁</span>
-                        <small style="opacity: 0.7;">90金币/5次</small>
-                    </button>
-                </div>
-            </div>
+            
             
             <!-- 抽奖区域 -->
             <div class="module draw-module" id="drawModule" style="display: none;">
@@ -1685,9 +1684,11 @@
             
             isLotteryActive = true;
             
-            // 隐藏原始抽奖按钮模块
-            document.getElementById('lotteryModule').style.display = 'none';
-
+            // 隐藏英雄区域的抽奖按钮
+            const lotteryButtons = document.getElementById('lotteryButtons');
+            if (lotteryButtons) {
+                lotteryButtons.style.display = 'none';
+            }
             
             // 显示抽奖区域
             document.getElementById('drawModule').style.display = 'block';
@@ -1695,7 +1696,11 @@
             document.getElementById('loading').classList.add('active');
             document.getElementById('cardsContainer').innerHTML = '';
             
-            // 移除自动滚动，避免页面跳动
+            // 滚动到抽奖结果模块
+            document.getElementById('drawModule').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
 
             try {
                 // 调用抽奖接口
@@ -1734,6 +1739,8 @@
                     
                     // 抽奖完成后刷新一次奖品列表
                     loadMyPrizes();
+                    
+                    // 保持英雄区域的抽奖按钮隐藏，使用抽奖结果模块的按钮
                     
                 } else {
                     showToast('抽奖失败，请重试', 'error');
