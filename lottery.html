@@ -107,9 +107,11 @@
         body.keyboard-open .game-machine {
             position: relative;
             transform: none;
-            min-height: 300px;
+            min-height: 400px;
             margin: 0 15px 10px;
             padding: 15px 0;
+            aspect-ratio: 16/9;
+            background-size: contain;
         }
         
         body.keyboard-open .draw-qualification {
@@ -137,6 +139,20 @@
             height: auto;
             min-height: 200px;
             margin: 10px 0;
+        }
+        
+        /* 保持游戏机背景图片比例 */
+        .game-machine {
+            background-size: contain !important;
+            background-position: center !important;
+        }
+        
+        /* 键盘调起时保持背景图片完整性 */
+        body.keyboard-open .game-machine {
+            background-size: contain !important;
+            background-position: center !important;
+            min-height: 350px;
+            max-height: 500px;
         }
 
         /* 音效控制按钮样式 */
@@ -209,7 +225,8 @@
         /* 游戏机主体 */
         .game-machine {
             background: url('https://cdnwukong.com/5432f62d-b3f0-4e02-8bf9-efd70b29e730/e9dae13a-12ec-42a4-b566-93db19c0354b/yxj.png') no-repeat center center;
-            background-size: 100% 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
             margin: 0 15px 30px;
             border-radius: 25px;
             padding: 20px 0;
@@ -219,6 +236,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            aspect-ratio: 16/9;
         }
 
         /* 用户信息栏 - 固定在图片顶部区域 */
@@ -4119,10 +4137,18 @@
              function handleKeyboardAdjustment() {
                  const isKeyboardOpen = window.innerHeight < window.outerHeight * 0.7;
                  const body = document.body;
+                 const gameMachine = document.querySelector('.game-machine');
                  
                  if (isKeyboardOpen) {
                      // 键盘调起时，保持原始视口设置，只添加样式类
                      body.classList.add('keyboard-open');
+                     
+                     // 确保游戏机背景图片保持比例
+                     if (gameMachine) {
+                         gameMachine.style.backgroundSize = 'contain';
+                         gameMachine.style.backgroundPosition = 'center';
+                         gameMachine.style.minHeight = '350px';
+                     }
                      
                      // 滚动到输入框位置
                      const activeInput = document.querySelector('input:focus, textarea:focus');
@@ -4137,6 +4163,13 @@
                  } else {
                      // 键盘收起时，移除样式类
                      body.classList.remove('keyboard-open');
+                     
+                     // 恢复游戏机背景图片设置
+                     if (gameMachine) {
+                         gameMachine.style.backgroundSize = 'contain';
+                         gameMachine.style.backgroundPosition = 'center';
+                         gameMachine.style.minHeight = '600px';
+                     }
                  }
              }
              
