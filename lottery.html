@@ -130,6 +130,29 @@
             justify-content: center;
         }
         
+        /* 键盘调起时的draw-placeholder样式 */
+        body.keyboard-open .draw-placeholder {
+            height: auto;
+            min-height: 200px;
+            padding: 20px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+        
+        body.keyboard-open .placeholder-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        body.keyboard-open .placeholder-text {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        
+        body.keyboard-open .placeholder-subtext {
+            font-size: 0.8rem;
+        }
+        
         /* 确保键盘调起时内容不被压缩 */
         body.keyboard-open .main-screen {
             position: relative;
@@ -614,40 +637,85 @@
 
             /* PC端抽奖占位提示 */
             .draw-placeholder {
-                font-size: 18px;
-                color: #333;
-                text-align: center;
-                padding: 40px 30px;
-                background: linear-gradient(135deg, #667eea, #764ba2);
-                color: white;
-                border-radius: 15px;
-                border: none;
-                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-                min-height: 150px;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                font-weight: 600;
-                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                text-align: center;
+                color: white;
+                padding: 20px 15px;
+                border-radius: 15px;
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+                backdrop-filter: blur(10px);
+                border: 2px solid rgba(255, 215, 0, 0.3);
+                box-shadow: 
+                    0 8px 25px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                    0 0 15px rgba(255, 215, 0, 0.1);
+                
                 width: 100%;
+                min-height: 200px;
+                height: 90%;
+                max-height: 400px;
                 max-width: 400px;
-                backdrop-filter: none;
-                border: none;
+                
+                position: relative;
+                overflow: hidden;
                 transition: all 0.3s ease;
             }
 
             .placeholder-icon {
                 font-size: 3rem;
                 margin-bottom: 20px;
+                animation: float 3s ease-in-out infinite;
+                filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.3));
+                position: relative;
+                z-index: 2;
             }
 
             .placeholder-text {
                 font-size: 1.2rem;
+                font-weight: bold;
                 margin-bottom: 10px;
+                color: #ffd700;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                position: relative;
+                z-index: 2;
+                letter-spacing: 1px;
             }
 
             .placeholder-subtext {
                 font-size: 0.9rem;
+                opacity: 0.9;
+                color: rgba(255, 255, 255, 0.95);
+                line-height: 1.4;
+                position: relative;
+                z-index: 2;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            }
+
+            /* PC端draw-placeholder伪元素样式 */
+            .draw-placeholder::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+                animation: shimmer 3s infinite;
+                pointer-events: none;
+            }
+
+            .draw-placeholder::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.1), transparent 50%);
+                pointer-events: none;
             }
 
             /* PC端金币不足内容 */
@@ -858,7 +926,9 @@
           
             flex: 1;
             padding: 1vw 1vw;
+            min-height: 300px;
             height: 90%;
+            max-height: 600px;
         }
 
         /* 抽奖占位提示 - 美化版本 */
@@ -880,7 +950,9 @@
                 0 0 5vw rgba(255, 215, 0, 0.1);
             
             width: 100%;
+            min-height: 200px;
             height: 90%;
+            max-height: 400px;
             
             position: relative;
             overflow: hidden;
@@ -1398,6 +1470,27 @@
             .controls {
                 margin-bottom: 4vw;
             }
+            
+            /* 小屏幕下的draw-placeholder适配 */
+            .draw-placeholder {
+                padding: 2.5vw 2.5vw;
+                min-height: 150px;
+                max-height: 300px;
+            }
+            
+            .placeholder-icon {
+                font-size: 7vw;
+                margin-bottom: 4vw;
+            }
+            
+            .placeholder-text {
+                font-size: 3vw;
+                margin-bottom: 2.5vw;
+            }
+            
+            .placeholder-subtext {
+                font-size: 2.2vw;
+            }
         }
         
         /* 超小屏幕适配 (360px以下) */
@@ -1428,6 +1521,27 @@
                 padding: 2.5vw 4vw;
                 font-size: 2.2vw;
                 min-width: 18vw;
+            }
+            
+            /* 超小屏幕下的draw-placeholder适配 */
+            .draw-placeholder {
+                padding: 2vw 2vw;
+                min-height: 120px;
+                max-height: 250px;
+            }
+            
+            .placeholder-icon {
+                font-size: 6vw;
+                margin-bottom: 3vw;
+            }
+            
+            .placeholder-text {
+                font-size: 2.5vw;
+                margin-bottom: 2vw;
+            }
+            
+            .placeholder-subtext {
+                font-size: 2vw;
             }
         }
 
@@ -2171,10 +2285,7 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
+
 
         .order-info {
             margin-bottom: 10px;
