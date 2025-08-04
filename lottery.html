@@ -21,6 +21,81 @@
             position: relative;
         }
 
+        /* 键盘调起时的样式处理 */
+        @media screen and (max-height: 500px) {
+            body {
+                min-height: 100vh;
+                height: 100vh;
+            }
+            
+            .game-machine {
+                min-height: 400px;
+            }
+            
+            .draw-qualification {
+                bottom: 2%;
+                font-size: 0.8rem;
+            }
+            
+            .controls {
+                bottom: 10%;
+            }
+            
+            .user-info-bar {
+                top: 3%;
+            }
+            
+            .main-screen {
+                top: 12%;
+                height: 45%;
+            }
+            
+            .draw-buttons {
+                bottom: 25%;
+            }
+        }
+        
+        /* 键盘调起时的额外样式 */
+        body.keyboard-open {
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        body.keyboard-open .game-machine {
+            transform: scale(0.9);
+            transform-origin: center top;
+        }
+        
+        body.keyboard-open .draw-qualification {
+            bottom: 1%;
+            font-size: 0.7rem;
+        }
+        
+        body.keyboard-open .controls {
+            bottom: 5%;
+        }
+        
+        body.keyboard-open .user-info-bar {
+            top: 2%;
+        }
+        
+        body.keyboard-open .main-screen {
+            top: 10%;
+            height: 40%;
+        }
+        
+        body.keyboard-open .draw-buttons {
+            bottom: 20%;
+        }
+        
+        /* 输入框获得焦点时的样式 */
+        .verification-input:focus,
+        .address-input:focus,
+        .address-textarea:focus {
+            transform: translateY(-10px);
+            transition: transform 0.3s ease;
+        }
+
         /* 音效控制按钮样式 */
         .sound-control {
             position: fixed;
@@ -653,7 +728,7 @@
         /* 抽奖资格显示区域 - 固定在按钮下方 */
         .draw-qualification {
             position: absolute;
-        
+            bottom: 5%;        /* 距离底部5% */
             left: 20%;         /* 距离左侧20% */
             width: 60%;        /* 宽度占60% */
             text-align: center;
@@ -3996,6 +4071,50 @@
                      mobileContainer.style.display = 'block';
                  }
              }
+             
+             // 处理键盘调起时的视口调整
+             function handleKeyboardAdjustment() {
+                 const isKeyboardOpen = window.innerHeight < window.outerHeight * 0.8;
+                 const body = document.body;
+                 
+                 if (isKeyboardOpen) {
+                     // 键盘调起时，调整视口高度
+                     const viewport = document.querySelector('meta[name="viewport"]');
+                     if (viewport) {
+                         viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, height=device-height');
+                     }
+                     
+                     // 添加键盘调起时的样式类
+                     body.classList.add('keyboard-open');
+                 } else {
+                     // 键盘收起时，恢复原始视口设置
+                     const viewport = document.querySelector('meta[name="viewport"]');
+                     if (viewport) {
+                         viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                     }
+                     
+                     // 移除键盘调起时的样式类
+                     body.classList.remove('keyboard-open');
+                 }
+             }
+             
+             // 监听窗口大小变化
+             window.addEventListener('resize', handleKeyboardAdjustment);
+             
+             // 监听输入框焦点事件
+             document.addEventListener('focusin', function(e) {
+                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                     // 输入框获得焦点时，延迟处理键盘调起
+                     setTimeout(handleKeyboardAdjustment, 300);
+                 }
+             });
+             
+             document.addEventListener('focusout', function(e) {
+                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                     // 输入框失去焦点时，延迟处理键盘收起
+                     setTimeout(handleKeyboardAdjustment, 300);
+                 }
+             });
              
              // 显示移动端内容（用户点击"我知道了"后）
              function showMobileContent() {
