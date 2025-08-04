@@ -33,25 +33,25 @@
             }
             
             .draw-qualification {
-                bottom: 2%;
+                bottom: 7%;
                 font-size: 0.8rem;
             }
             
             .controls {
-                bottom: 10%;
+                bottom: 21%;
             }
             
             .user-info-bar {
-                top: 3%;
+                top: 6%;
             }
             
             .main-screen {
-                top: 12%;
+                top: 18%;
                 height: 45%;
             }
             
             .draw-buttons {
-                bottom: 25%;
+                bottom: 2%;
             }
         }
         
@@ -81,12 +81,71 @@
         }
         
         body.keyboard-open .user-info-bar {
-            top: 3%;
+            top: 6%;
         }
         
+        /* 键盘调起时的main-screen适配 */
         body.keyboard-open .main-screen {
-            top: 15%;
-            height: 35%;
+            position: relative;
+            top: auto;
+            height: auto;
+            min-height: 300px;
+            margin: 10px 0;
+            padding: 20px 15px;
+        }
+
+        body.keyboard-open .draw-cards {
+            height: auto;
+            min-height: 200px;
+            margin-bottom: 15px;
+        }
+
+        body.keyboard-open .draw-placeholder {
+            padding: 20px 15px;
+            min-height: 150px;
+        }
+
+        body.keyboard-open .placeholder-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        body.keyboard-open .placeholder-text {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        body.keyboard-open .placeholder-subtext {
+            font-size: 0.9rem;
+        }
+
+        body.keyboard-open .draw-buttons {
+            position: static;
+            margin-top: 15px;
+            gap: 15px;
+            padding: 0;
+        }
+
+        body.keyboard-open .verification-form {
+            padding: 10px 15px;
+            border-radius: 20px;
+        }
+
+        body.keyboard-open .verification-input {
+            font-size: 16px;
+            padding: 5px 0;
+        }
+
+        body.keyboard-open .verification-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 15px;
+        }
+
+        body.keyboard-open .draw-option-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            min-width: 120px;
         }
         
         body.keyboard-open .draw-buttons {
@@ -253,7 +312,7 @@
         /* 用户信息栏 - 固定在图片顶部区域 */
         .user-info-bar {
             position: absolute;
-            top: 5%;           /* 距离顶部8% */
+            top: 6%;           /* 距离顶部8% */
             left: 17%;         /* 距离左侧15% */
             width: 70%;        /* 宽度占70% */
             padding: 8px 15px;
@@ -308,15 +367,83 @@
             flex: 1;
         }
 
-        /* 主屏幕区域 - 固定在图片中央区域 */
+        /* 主屏幕区域 - 重新设计布局 */
         .main-screen {
             position: absolute;
-            top: 16%;
-            left: 5%;
-            width: 90%;
-            height: 50%;
-            /* background: transparent; */
+            top: 13%;           /* 调整顶部位置，给用户信息栏留更多空间 */
+            left: 3%;          /* 减少左边距 */
+            width: 94%;        /* 增加宽度利用率 */
+            height: 60%;       /* 增加高度，提供更多内容空间 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 3vw;
+            border-radius: 20px;
+          
+           
+        }
+
+        /* 抽奖卡片区域 - 重新设计 */
+        .draw-cards {
+            width: 100%;
+            height: 70%;       /* 占据主要空间 */
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-bottom: 2vw;
+        }
+
+        /* 抽奖占位符 - 优化样式 */
+        .draw-placeholder {
+            width: 80%;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
             border-radius: 15px;
+            padding: 4vw;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .draw-placeholder:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .placeholder-icon {
+            font-size: 8vw;
+            margin-bottom: 3vw;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .placeholder-text {
+            font-size: 4vw;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2vw;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .placeholder-subtext {
+            font-size: 2.5vw;
+            color: #666;
+            text-align: center;
+            line-height: 1.4;
         }
 
         /* 奖品网格 */
@@ -381,18 +508,110 @@
             transform: translateY(-0.3vw);
         }
 
-        /* 抽奖按钮区域 - 固定在图片底部区域 */
+        /* 抽奖按钮区域 - 重新定位和设计 */
         .draw-buttons {
-            position: absolute;
-            bottom: 30%;       /* 距离底部15% */
-            left: 20%;         /* 距离左侧20% */
-            width: 60%;        /* 宽度占60% */
+            position: relative;  /* 改为相对定位 */
+            bottom: auto;
+            left: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3vw;
+            padding: 2vw 0;
+            margin-top: auto;   /* 推到底部 */
+        }
+
+        /* 验证区域样式 - 优化 */
+        .verification-section {
+            width: 100%;
+            max-width: 80%;
             display: flex;
             justify-content: center;
-            gap: 20px;
-            flex-shrink: 0;
-            padding: 20px 0;
-            z-index: 10;
+            margin-bottom: 2vw;
+        }
+
+        .verification-form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 2vw;
+            width: 100%;
+            max-width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 2vw 3vw;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .verification-input {
+            flex: 1;
+            min-width: 60%;
+            border: none;
+            background: transparent;
+            font-size: 3.5vw;
+            color: #333;
+            outline: none;
+            padding: 1vw 0;
+        }
+
+        .verification-input::placeholder {
+            color: #999;
+        }
+
+        .verification-btn {
+            background: linear-gradient(145deg, #ffd700, #ffed4e);
+            border: none;
+            border-radius: 20px;
+            padding: 2vw 4vw;
+            font-size: 3vw;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .verification-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+        }
+
+        /* 抽奖选项区域 - 优化 */
+        .draw-options-section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 4vw;
+        }
+
+        .draw-option-btn {
+            background: linear-gradient(145deg, #ff4757, #ff6b9d);
+            border: none;
+            border-radius: 15px;
+            padding: 3vw 5vw;
+            font-size: 3.5vw;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            transition: all 0.3s ease;
+            min-width: 25vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1vw;
+        }
+
+        .draw-option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
+        }
+
+        .draw-option-btn:active {
+            transform: translateY(-1px);
         }
 
         /* 抽奖区域loading状态样式 */
@@ -584,26 +803,26 @@
 
             /* PC端抽奖按钮区域 */
             .draw-buttons {
-                bottom: 30%;
-                left: 20%;
-                width: 60%;
+                bottom: 2%;
+             
+                width: 100%;
                 gap: 15px;
                 padding: 15px 0;
             }
 
             /* PC端抽奖资格显示 */
             .draw-qualification {
-                bottom: 4%;
-                left: 20%;
+                bottom: 7%;
+             
                 width: 60%;
                 font-size: 0.8rem;
             }
 
             /* PC端控制区域 */
             .controls {
-                bottom: 15%;
-                right: 8%;
-                width: 25%;
+                bottom: 21%;
+                right: 35%;
+                width: 30%;
             }
 
             .control-btn {
@@ -653,9 +872,9 @@
                     inset 0 1px 0 rgba(255, 255, 255, 0.2),
                     0 0 15px rgba(255, 215, 0, 0.1);
                 
-                width: 100%;
+                width: 80%;
                 min-height: 200px;
-                height: 90%;
+                height: 80%;
                 max-height: 400px;
                 max-width: 400px;
                 
@@ -845,7 +1064,7 @@
         /* 抽奖资格显示区域 - 固定在按钮下方 */
         .draw-qualification {
             position: absolute;
-            bottom: 2%;        /* 距离底部5% */
+            bottom: 7%;        /* 距离底部5% */
             left: 20%;         /* 距离左侧20% */
             width: 60%;        /* 宽度占60% */
             text-align: center;
@@ -858,8 +1077,8 @@
         /* 控制区域 - 固定在图片右下角 */
         .controls {
             position: absolute;
-            bottom: 17%;        /* 距离底部5% */
-            right: 10%;        /* 距离右侧10% */
+            bottom: 21%;        /* 距离底部5% */
+            right: 35%;        /* 距离右侧10% */
             width: 30%;        /* 宽度占30% */
             display: flex;
             align-items: center;
@@ -925,7 +1144,7 @@
             flex-wrap: wrap;
           
             flex: 1;
-            padding: 1vw 1vw;
+            padding: 7vw 1vw;
             min-height: 300px;
             height: 90%;
             max-height: 600px;
@@ -949,9 +1168,9 @@
                 inset 0 0.3vw 0 rgba(255, 255, 255, 0.2),
                 0 0 5vw rgba(255, 215, 0, 0.1);
             
-            width: 100%;
+            width: 80%;
             min-height: 200px;
-            height: 90%;
+            height: 80%;
             max-height: 400px;
             
             position: relative;
@@ -1094,21 +1313,23 @@
          /* 验证表单样式 - 美化版本 */
          .verification-form {
              display: flex;
-             flex-direction: column;
-             gap: 4.5vw;
-             margin-top: 6vw;
+             flex-direction: row;
+             align-items: center;
+             gap: 3vw;
              width: 100%;
-             max-width: 70%;
+             max-width: 80%;
              position: relative;
              z-index: 2;
+             margin: 0 auto;
          }
          
          .verification-input {
+             flex: 1;
              padding: 3vw 4.5vw;
              border: 0.5vw solid rgba(255, 215, 0, 0.4);
              border-radius: 3vw;
-             background: rgba(255, 255, 255, 0.15);
-             color: white;
+             background: rgba(255, 255, 255, 0.9);
+             color: #333;
              font-size: 3vw;
              backdrop-filter: blur(4vw);
              outline: none;
@@ -1119,7 +1340,7 @@
          }
          
          .verification-input::placeholder {
-             color: rgba(255, 255, 255, 0.8);
+             color: #666;
              font-weight: 500;
          }
          
@@ -1147,6 +1368,7 @@
                  0 0.5vw 2vw rgba(0, 0, 0, 0.2);
              position: relative;
              overflow: hidden;
+             white-space: nowrap;
          }
          
          .verification-btn::before {
@@ -1171,9 +1393,109 @@
              left: 100%;
          }
          
-         .verification-btn:active {
-             transform: translateY(-0.3vw);
-         }
+                 .verification-btn:active {
+            transform: translateY(-0.3vw);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 480px) {
+            .main-screen {
+                top: 13%;
+                left: 2%;
+                width: 96%;
+                height: 55%;
+                padding: 0 2vw;
+                min-height: 300px;
+            }
+            
+            .draw-cards {
+                height: 60%;
+                margin-bottom: 1.5vw;
+                min-height: 200px;
+            }
+            
+            .draw-placeholder {
+                padding: 2.5vw;
+                min-height: 150px;
+                max-height: 250px;
+            }
+            
+            .verification-form {
+                flex-direction: row;
+                gap: 2.5vw;
+                max-width: 90%;
+            }
+            
+            .verification-input {
+                width: 100%;
+                min-width: 65%;
+                font-size: 2.8vw;
+                padding: 2.5vw 4vw;
+            }
+            
+            .verification-btn {
+                width: 100%;
+                font-size: 2.8vw;
+                padding: 2.5vw 5vw;
+            }
+            
+            .draw-buttons {
+                gap: 3vw;
+                padding: 15px 0;
+            }
+            
+            .draw-options-section {
+                gap: 2.5vw;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .main-screen {
+                top: 13%;
+                left: 1%;
+                width: 98%;
+                height: 60%;
+                padding: 0 1.5vw;
+                min-height: 280px;
+            }
+            
+            .draw-cards {
+                height: 55%;
+                margin-bottom: 1vw;
+                min-height: 180px;
+            }
+            
+            .draw-placeholder {
+                padding: 2vw;
+                min-height: 120px;
+                max-height: 200px;
+            }
+            
+            .verification-form {
+                max-width: 95%;
+                gap: 2vw;
+            }
+            
+            .verification-input {
+                min-width: 70%;
+                font-size: 2.5vw;
+                padding: 2vw 3.5vw;
+            }
+            
+            .verification-btn {
+                font-size: 2.5vw;
+                padding: 2vw 4.5vw;
+            }
+            
+            .draw-buttons {
+                gap: 2.5vw;
+                padding: 10px 0;
+            }
+            
+            .draw-options-section {
+                gap: 2vw;
+            }
+        }
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {
@@ -1406,142 +1728,130 @@
         /* 响应式设计 - 统一媒体查询逻辑 */
         /* 小屏幕适配 (480px以下) */
         @media (max-width: 480px) {
-            .main-title {
-                font-size: 5vw;
-            }
-            
-            .subtitle {
-                font-size: 2.5vw;
-            }
-            
-            .game-machine {
-                margin: 0 3vw 5vw;
-                padding: 4vw 4vw;
-                min-height: 75vh;
-            }
-            
-            .user-info-bar {
-                margin-top: 2vw;
-                width: 85%;
-            }
-            
             .main-screen {
-                padding: 4vw;
-                max-height: 45vh;
+                top: 13%;
+                left: 2%;
+                width: 96%;
+                height: 55%;
+                padding: 0 2vw;
+                min-height: 300px;
             }
-            
-            .user-avatar {
-                width: 6vw;
-                height: 6vw;
-                font-size: 2.5vw;
+
+            .draw-cards {
+                height: 60%;
+                margin-bottom: 1.5vw;
+                min-height: 200px;
             }
-            
-            .prize-grid {
-                gap: 2.5vw;
-            }
-            
-            .prize-item {
-                padding: 3vw 1.5vw;
-            }
-            
-            .prize-icon {
-                font-size: 4vw;
-            }
-            
-            .prize-name {
-                font-size: 2vw;
-            }
-            
-            .draw-buttons {
-                gap: 4vw;
-                padding: 2vw 0;
-            }
-            
-            .draw-option-btn {
-                padding: 3vw 5vw;
-                font-size: 2.5vw;
-                min-width: 20vw;
-            }
-            
-            .draw-qualification {
-                padding-bottom: 5vw;
-            }
-            
-            .controls {
-                margin-bottom: 4vw;
-            }
-            
-            /* 小屏幕下的draw-placeholder适配 */
+
             .draw-placeholder {
-                padding: 2.5vw 2.5vw;
+                padding: 2.5vw;
                 min-height: 150px;
-                max-height: 300px;
+                max-height: 250px;
             }
-            
+
             .placeholder-icon {
-                font-size: 7vw;
-                margin-bottom: 4vw;
-            }
-            
-            .placeholder-text {
-                font-size: 3vw;
+                font-size: 6vw;
                 margin-bottom: 2.5vw;
             }
-            
+
+            .placeholder-text {
+                font-size: 3vw;
+                margin-bottom: 1.5vw;
+            }
+
             .placeholder-subtext {
                 font-size: 2.2vw;
+            }
+
+            .verification-form {
+                flex-direction: row;
+                gap: 2.5vw;
+                max-width: 90%;
+            }
+
+            .verification-input {
+                width: 100%;
+                min-width: 65%;
+                font-size: 2.8vw;
+                padding: 2.5vw 4vw;
+            }
+
+            .verification-btn {
+                width: 100%;
+                font-size: 2.8vw;
+                padding: 2.5vw 5vw;
+            }
+
+            .draw-buttons {
+                gap: 3vw;
+                padding: 15px 0;
+            }
+
+            .draw-options-section {
+                gap: 2.5vw;
             }
         }
         
         /* 超小屏幕适配 (360px以下) */
         @media (max-width: 360px) {
-            .game-machine {
-                margin: 0 2vw 4vw;
-                padding: 3vw 3vw;
-                min-height: 70vh;
-            }
-            
-            .user-info-bar {
-                margin-top: 1.5vw;
-                width: 90%;
-            }
-            
             .main-screen {
-                margin-top: 6vw;
-                padding: 3vw;
-                max-height: 40vh;
+                top: 1%;
+                left: 1%;
+                width: 98%;
+                height: 60%;
+                padding: 0 1.5vw;
+                min-height: 280px;
             }
-            
-            .draw-buttons {
-                gap: 3vw;
-                padding: 2vw 0;
+
+            .draw-cards {
+                height: 55%;
+                margin-bottom: 1vw;
+                min-height: 180px;
             }
-            
-            .draw-option-btn {
-                padding: 2.5vw 4vw;
-                font-size: 2.2vw;
-                min-width: 18vw;
-            }
-            
-            /* 超小屏幕下的draw-placeholder适配 */
+
             .draw-placeholder {
-                padding: 2vw 2vw;
+                padding: 2vw;
                 min-height: 120px;
-                max-height: 250px;
+                max-height: 200px;
             }
-            
+
             .placeholder-icon {
-                font-size: 6vw;
-                margin-bottom: 3vw;
-            }
-            
-            .placeholder-text {
-                font-size: 2.5vw;
+                font-size: 5vw;
                 margin-bottom: 2vw;
             }
-            
+
+            .placeholder-text {
+                font-size: 2.5vw;
+                margin-bottom: 1vw;
+            }
+
             .placeholder-subtext {
                 font-size: 2vw;
+            }
+
+            .verification-form {
+                max-width: 95%;
+                gap: 2vw;
+            }
+
+            .verification-input {
+                min-width: 70%;
+                font-size: 2.5vw;
+                padding: 2vw 3.5vw;
+            }
+
+            .verification-btn {
+                font-size: 2.5vw;
+                padding: 2vw 4.5vw;
+            }
+
+            .draw-buttons {
+                gap: 2.5vw;
+                padding: 10px 0;
+            }
+
+            .draw-options-section {
+                gap: 2vw;
             }
         }
 
@@ -1682,7 +1992,7 @@
             padding: 12px 20px;
             border: none;
             border-radius: 8px;
-            font-size: 1rem;
+         
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1809,7 +2119,7 @@
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
             margin: 20px 15px;
             border-radius: 25px;
-            padding: 30px;
+            padding: 15px;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
             display: none; /* 默认隐藏，验证后显示 */
             border: 2px solid rgba(255, 255, 255, 0.8);
@@ -2501,8 +2811,8 @@
         /* 控制区域 - 固定在图片右下角 */
         .controls {
             position: absolute;
-            bottom: 17%;        /* 距离底部5% */
-            right: 30%;        /* 距离右侧10% */
+            bottom: 21%;        /* 距离底部5% */
+            right: 35%;        /* 距离右侧10% */
             width: 30%;        /* 宽度占30% */
             display: flex;
             align-items: center;
@@ -2577,27 +2887,38 @@
                <div class="draw-cards" id="drawCards">
                                   <!-- 默认提示文案 -->
                 <div class="draw-placeholder" id="drawPlaceholder">
-                    <div class="placeholder-icon">🔐</div>
-                    <div class="placeholder-text">请输入验证码</div>
-                    <div class="placeholder-subtext">验证身份后即可开始抽奖</div>
-                    <div class="verification-form" id="verificationForm">
-                        <input type="text" id="verificationCode" placeholder="请输入验证码" class="verification-input">
-                        <button onclick="handleVerification()" class="verification-btn">验证身份</button>
-                    </div>
+                    
+                    
                 </div>
+                    
                    <!-- 卡片将通过JavaScript动态生成 -->
                </div>
+
+               <!-- 抽奖按钮区域 - 固定在图片底部区域 -->
+                        <div class="draw-buttons" id="drawButtons">
+                            <!-- 验证区域 -->
+                            <div class="verification-section">
+                                <div class="verification-form" id="verificationForm">
+                                    <input type="text" id="verificationCode" placeholder="请输入验证码" class="verification-input" maxlength="8" onkeypress="handleKeyPress(event)" oninput="limitInput(this)">
+                                    <button onclick="handleVerification()" class="verification-btn">验证</button>
+                                </div>
+                            </div>
+                            
+                            <!-- 抽奖按钮组 -->
+                            <div class="draw-options-section">
+                                <button class="draw-option-btn" onclick="startDraw(1)">20<svg t="1754277660881" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5506" width="16" height="16" style="vertical-align: middle; margin: 0 2px;"><path d="M512 528m-398 0a398 398 0 1 0 796 0 398 398 0 1 0-796 0Z" fill="#F2814E" p-id="5507"></path><path d="M512 496m-398 0a398 398 0 1 0 796 0 398 398 0 1 0-796 0Z" fill="#FFDC88" p-id="5508"></path><path d="M512 496m-282 0a282 282 0 1 0 564 0 282 282 0 1 0-564 0Z" fill="#FFBC54" p-id="5509"></path><path d="M512 180.668c174.036 0 315.332 141.296 315.332 315.332S686.036 811.332 512 811.332 196.668 670.036 196.668 496 337.964 180.668 512 180.668z m0 33.332c-155.64 0-282 126.36-282 282s126.36 282 282 282 282-126.36 282-282-126.36-282-282-282z" fill="#FA7B4D" p-id="5510"></path><path d="M512 180.668c174.036 0 315.332 141.296 315.332 315.332S686.036 811.332 512 811.332 196.668 670.036 196.668 496 337.964 180.668 512 180.668z m0 33.332c-155.64 0-282 126.36-282 282s126.36 282 282 282 282-126.36 282-282-126.36-282-282-282z" fill="#FA7B4D" p-id="5511"></path><path d="M257.4 801.828c14.168-7.124 31.124-14.42 36.6-35.828 20.132-78.676 424-508 424-508s0.372-52.644 29.852-82.536C846.172 247.96 910 364.584 910 496c0 219.664-178.336 398-398 398-96.8 0-185.572-34.632-254.6-92.172z" fill="#F47A38" fill-opacity=".5" p-id="5512"></path><path d="M716.296 301.688a30.104 30.104 0 0 1-0.228-41.464c1.24-1.488 1.932-2.224 1.932-2.224v-0.144a0.188 0.188 0 0 1 0.044-0.24 0.188 0.188 0 0 1 0.244 0c66.784 57.816 109.044 143.204 109.044 238.384 0 174.036-141.296 315.332-315.332 315.332-72.76 0-139.8-24.696-193.18-66.156a14.96 14.96 0 0 1-3.216-19.928l-0.036-0.02a18.172 18.172 0 0 1 26.248-4.452C389.112 756.692 448.088 778 512 778c155.64 0 282-126.36 282-282 0-75.284-29.564-143.716-77.704-194.312z" fill="#FFBA58" p-id="5513"></path><path d="M496.016 347.784a19.664 19.664 0 0 1 31.968 0l52.38 73.068a19.668 19.668 0 0 0 10.028 7.284l85.676 27.236a19.668 19.668 0 0 1 9.88 30.404l-53.308 72.396a19.668 19.668 0 0 0-3.828 11.788l0.572 89.896a19.668 19.668 0 0 1-25.864 18.792l-85.324-28.324a19.656 19.656 0 0 0-12.392 0l-85.324 28.324a19.664 19.664 0 0 1-25.864-18.792l0.572-89.896a19.668 19.668 0 0 0-3.828-11.788l-53.308-72.396a19.668 19.668 0 0 1 9.88-30.404l85.676-27.236a19.668 19.668 0 0 0 10.028-7.284l52.38-73.068z" fill="#FA7F4B" p-id="5514"></path><path d="M496.016 327.004a19.664 19.664 0 0 1 31.968 0l52.38 73.068a19.668 19.668 0 0 0 10.028 7.284l85.676 27.236a19.68 19.68 0 0 1 9.88 30.408l-53.308 72.392a19.668 19.668 0 0 0-3.828 11.788l0.572 89.9a19.664 19.664 0 0 1-25.864 18.792l-85.324-28.328a19.656 19.656 0 0 0-12.392 0l-85.324 28.328a19.668 19.668 0 0 1-25.864-18.792l0.572-89.9a19.668 19.668 0 0 0-3.828-11.788L338.052 465a19.68 19.68 0 0 1 9.88-30.408l85.676-27.236a19.668 19.668 0 0 0 10.028-7.284l52.38-73.068z" fill="#FFBC54" p-id="5515"></path><path d="M338.444 461.512a25.548 25.548 0 0 1 17.3-29.404l76.008-24.16a25.564 25.564 0 0 0 13.02-9.46l46.468-64.82a25.54 25.54 0 0 1 41.52 0l46.468 64.82a25.564 25.564 0 0 0 13.02 9.46l76.008 24.16a25.548 25.548 0 0 1 16.16 33.36c-49.228 10.14-104.98 15.864-164.024 15.864-66.332 0-128.508-7.224-181.948-19.82z" fill="#FFEA8D" p-id="5516"></path><path d="M787.368 557.016a17.312 17.312 0 0 1 21.992-12.948c0.376 0.124 0.752 0.236 1.124 0.356a14.752 14.752 0 0 1 10.016 17.036c-18.42 87.196-72.936 161.14-147.148 205.464a15.988 15.988 0 0 1-21.116-4.48l0.016-0.016a17.24 17.24 0 0 1 5.224-24.844c65.064-39.296 113.004-104.128 129.892-180.568z" fill="#FFED8C" p-id="5517"></path></svg>/1次</button>
+                                <button class="draw-option-btn" onclick="startDraw(5)">90<svg t="1754277660881" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5506" width="16" height="16" style="vertical-align: middle; margin: 0 2px;"><path d="M512 528m-398 0a398 398 0 1 0 796 0 398 398 0 1 0-796 0Z" fill="#F2814E" p-id="5507"></path><path d="M512 496m-398 0a398 398 0 1 0 796 0 398 398 0 1 0-796 0Z" fill="#FFDC88" p-id="5508"></path><path d="M512 496m-282 0a282 282 0 1 0 564 0 282 282 0 1 0-564 0Z" fill="#FFBC54" p-id="5509"></path><path d="M512 180.668c174.036 0 315.332 141.296 315.332 315.332S686.036 811.332 512 811.332 196.668 670.036 196.668 496 337.964 180.668 512 180.668z m0 33.332c-155.64 0-282 126.36-282 282s126.36 282 282 282 282-126.36 282-282-126.36-282-282-282z" fill="#FA7B4D" p-id="5510"></path><path d="M512 180.668c174.036 0 315.332 141.296 315.332 315.332S686.036 811.332 512 811.332 196.668 670.036 196.668 496 337.964 180.668 512 180.668z m0 33.332c-155.64 0-282 126.36-282 282s126.36 282 282 282 282-126.36 282-282-126.36-282-282-282z" fill="#FA7B4D" p-id="5511"></path><path d="M257.4 801.828c14.168-7.124 31.124-14.42 36.6-35.828 20.132-78.676 424-508 424-508s0.372-52.644 29.852-82.536C846.172 247.96 910 364.584 910 496c0 219.664-178.336 398-398 398-96.8 0-185.572-34.632-254.6-92.172z" fill="#F47A38" fill-opacity=".5" p-id="5512"></path><path d="M716.296 301.688a30.104 30.104 0 0 1-0.228-41.464c1.24-1.488 1.932-2.224 1.932-2.224v-0.144a0.188 0.188 0 0 1 0.044-0.24 0.188 0.188 0 0 1 0.244 0c66.784 57.816 109.044 143.204 109.044 238.384 0 174.036-141.296 315.332-315.332 315.332-72.76 0-139.8-24.696-193.18-66.156a14.96 14.96 0 0 1-3.216-19.928l-0.036-0.02a18.172 18.172 0 0 1 26.248-4.452C389.112 756.692 448.088 778 512 778c155.64 0 282-126.36 282-282 0-75.284-29.564-143.716-77.704-194.312z" fill="#FFBA58" p-id="5513"></path><path d="M496.016 347.784a19.664 19.664 0 0 1 31.968 0l52.38 73.068a19.668 19.668 0 0 0 10.028 7.284l85.676 27.236a19.668 19.668 0 0 1 9.88 30.404l-53.308 72.396a19.668 19.668 0 0 0-3.828 11.788l0.572 89.896a19.668 19.668 0 0 1-25.864 18.792l-85.324-28.324a19.656 19.656 0 0 0-12.392 0l-85.324 28.324a19.664 19.664 0 0 1-25.864-18.792l0.572-89.896a19.668 19.668 0 0 0-3.828-11.788l-53.308-72.396a19.668 19.668 0 0 1 9.88-30.404l85.676-27.236a19.668 19.668 0 0 0 10.028-7.284l52.38-73.068z" fill="#FA7F4B" p-id="5514"></path><path d="M496.016 327.004a19.664 19.664 0 0 1 31.968 0l52.38 73.068a19.668 19.668 0 0 0 10.028 7.284l85.676 27.236a19.68 19.68 0 0 1 9.88 30.408l-53.308 72.392a19.668 19.668 0 0 0-3.828 11.788l0.572 89.9a19.664 19.664 0 0 1-25.864 18.792l-85.324-28.328a19.656 19.656 0 0 0-12.392 0l-85.324 28.328a19.668 19.668 0 0 1-25.864-18.792l0.572-89.9a19.668 19.668 0 0 0-3.828-11.788L338.052 465a19.68 19.68 0 0 1 9.88-30.408l85.676-27.236a19.668 19.668 0 0 0 10.028-7.284l52.38-73.068z" fill="#FFBC54" p-id="5515"></path><path d="M338.444 461.512a25.548 25.548 0 0 1 17.3-29.404l76.008-24.16a25.564 25.564 0 0 0 13.02-9.46l46.468-64.82a25.54 25.54 0 0 1 41.52 0l46.468 64.82a25.564 25.564 0 0 0 13.02 9.46l76.008 24.16a25.548 25.548 0 0 1 16.16 33.36c-49.228 10.14-104.98 15.864-164.024 15.864-66.332 0-128.508-7.224-181.948-19.82z" fill="#FFEA8D" p-id="5516"></path><path d="M787.368 557.016a17.312 17.312 0 0 1 21.992-12.948c0.376 0.124 0.752 0.236 1.124 0.356a14.752 14.752 0 0 1 10.016 17.036c-18.42 87.196-72.936 161.14-147.148 205.464a15.988 15.988 0 0 1-21.116-4.48l0.016-0.016a17.24 17.24 0 0 1 5.224-24.844c65.064-39.296 113.004-104.128 129.892-180.568z" fill="#FFED8C" p-id="5517"></path></svg>/5次</button>
+                            </div>
+                        </div>
          </div>
          
-         <!-- 抽奖按钮区域 - 固定在图片底部区域 -->
-         <div class="draw-buttons" id="drawButtons">
-                         <button class="draw-option-btn" onclick="startDraw(1)">20<svg t="1754277660881" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5506" width="16" height="16" style="vertical-align: middle; margin: 0 2px;"><path d="M512 528m-398 0a398 398 0 1 0 796 0 398 398 0 1 0-796 0Z" fill="#F2814E" p-id="5507"></path><path d="M512 496m-398 0a398 398 0 1 0 796 0 398 398 0 1 0-796 0Z" fill="#FFDC88" p-id="5508"></path><path d="M512 496m-282 0a282 282 0 1 0 564 0 282 282 0 1 0-564 0Z" fill="#FFBC54" p-id="5509"></path><path d="M512 180.668c174.036 0 315.332 141.296 315.332 315.332S686.036 811.332 512 811.332 196.668 670.036 196.668 496 337.964 180.668 512 180.668z m0 33.332c-155.64 0-282 126.36-282 282s126.36 282 282 282 282-126.36 282-282-126.36-282-282-282z" fill="#FA7B4D" p-id="5510"></path><path d="M512 180.668c174.036 0 315.332 141.296 315.332 315.332S686.036 811.332 512 811.332 196.668 670.036 196.668 496 337.964 180.668 512 180.668z m0 33.332c-155.64 0-282 126.36-282 282s126.36 282 282 282 282-126.36 282-282-126.36-282-282-282z" fill="#FA7B4D" p-id="5511"></path><path d="M257.4 801.828c14.168-7.124 31.124-14.42 36.6-35.828 20.132-78.676 424-508 424-508s0.372-52.644 29.852-82.536C846.172 247.96 910 364.584 910 496c0 219.664-178.336 398-398 398-96.8 0-185.572-34.632-254.6-92.172z" fill="#F47A38" fill-opacity=".5" p-id="5512"></path><path d="M716.296 301.688a30.104 30.104 0 0 1-0.228-41.464c1.24-1.488 1.932-2.224 1.932-2.224v-0.144a0.188 0.188 0 0 1 0.044-0.24 0.188 0.188 0 0 1 0.244 0c66.784 57.816 109.044 143.204 109.044 238.384 0 174.036-141.296 315.332-315.332 315.332-72.76 0-139.8-24.696-193.18-66.156a14.96 14.96 0 0 1-3.216-19.928l-0.036-0.02a18.172 18.172 0 0 1 26.248-4.452C389.112 756.692 448.088 778 512 778c155.64 0 282-126.36 282-282 0-75.284-29.564-143.716-77.704-194.312z" fill="#FFBA58" p-id="5513"></path><path d="M496.016 347.784a19.664 19.664 0 0 1 31.968 0l52.38 73.068a19.668 19.668 0 0 0 10.028 7.284l85.676 27.236a19.668 19.668 0 0 1 9.88 30.404l-53.308 72.396a19.668 19.668 0 0 0-3.828 11.788l0.572 89.896a19.668 19.668 0 0 1-25.864 18.792l-85.324-28.324a19.656 19.656 0 0 0-12.392 0l-85.324 28.324a19.664 19.664 0 0 1-25.864-18.792l0.572-89.896a19.668 19.668 0 0 0-3.828-11.788l-53.308-72.396a19.668 19.668 0 0 1 9.88-30.404l85.676-27.236a19.668 19.668 0 0 0 10.028-7.284l52.38-73.068z" fill="#FA7F4B" p-id="5514"></path><path d="M496.016 327.004a19.664 19.664 0 0 1 31.968 0l52.38 73.068a19.668 19.668 0 0 0 10.028 7.284l85.676 27.236a19.68 19.68 0 0 1 9.88 30.408l-53.308 72.392a19.668 19.668 0 0 0-3.828 11.788l0.572 89.9a19.664 19.664 0 0 1-25.864 18.792l-85.324-28.328a19.656 19.656 0 0 0-12.392 0l-85.324 28.328a19.668 19.668 0 0 1-25.864-18.792l0.572-89.9a19.668 19.668 0 0 0-3.828-11.788L338.052 465a19.68 19.68 0 0 1 9.88-30.408l85.676-27.236a19.668 19.668 0 0 0 10.028-7.284l52.38-73.068z" fill="#FFBC54" p-id="5515"></path><path d="M338.444 461.512a25.548 25.548 0 0 1 17.3-29.404l76.008-24.16a25.564 25.564 0 0 0 13.02-9.46l46.468-64.82a25.54 25.54 0 0 1 41.52 0l46.468 64.82a25.564 25.564 0 0 0 13.02 9.46l76.008 24.16a25.548 25.548 0 0 1 16.16 33.36c-49.228 10.14-104.98 15.864-164.024 15.864-66.332 0-128.508-7.224-181.948-19.82z" fill="#FFEA8D" p-id="5516"></path><path d="M787.368 557.016a17.312 17.312 0 0 1 21.992-12.948c0.376 0.124 0.752 0.236 1.124 0.356a14.752 14.752 0 0 1 10.016 17.036c-18.42 87.196-72.936 161.14-147.148 205.464a15.988 15.988 0 0 1-21.116-4.48l0.016-0.016a17.24 17.24 0 0 1 5.224-24.844c65.064-39.296 113.004-104.128 129.892-180.568z" fill="#FFED8C" p-id="5517"></path></svg>/1次</button>
-                         <button class="draw-option-btn" onclick="startDraw(5)">90<svg t="1754277660881" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5506" width="16" height="16" style="vertical-align: middle; margin: 0 2px;"><path d="M512 528m-398 0a398 398 0 1 0 796 0 398 398 0 1 0-796 0Z" fill="#F2814E" p-id="5507"></path><path d="M512 496m-398 0a398 398 0 1 0 796 0 398 398 0 1 0-796 0Z" fill="#FFDC88" p-id="5508"></path><path d="M512 496m-282 0a282 282 0 1 0 564 0 282 282 0 1 0-564 0Z" fill="#FFBC54" p-id="5509"></path><path d="M512 180.668c174.036 0 315.332 141.296 315.332 315.332S686.036 811.332 512 811.332 196.668 670.036 196.668 496 337.964 180.668 512 180.668z m0 33.332c-155.64 0-282 126.36-282 282s126.36 282 282 282 282-126.36 282-282-126.36-282-282-282z" fill="#FA7B4D" p-id="5510"></path><path d="M512 180.668c174.036 0 315.332 141.296 315.332 315.332S686.036 811.332 512 811.332 196.668 670.036 196.668 496 337.964 180.668 512 180.668z m0 33.332c-155.64 0-282 126.36-282 282s126.36 282 282 282 282-126.36 282-282-126.36-282-282-282z" fill="#FA7B4D" p-id="5511"></path><path d="M257.4 801.828c14.168-7.124 31.124-14.42 36.6-35.828 20.132-78.676 424-508 424-508s0.372-52.644 29.852-82.536C846.172 247.96 910 364.584 910 496c0 219.664-178.336 398-398 398-96.8 0-185.572-34.632-254.6-92.172z" fill="#F47A38" fill-opacity=".5" p-id="5512"></path><path d="M716.296 301.688a30.104 30.104 0 0 1-0.228-41.464c1.24-1.488 1.932-2.224 1.932-2.224v-0.144a0.188 0.188 0 0 1 0.044-0.24 0.188 0.188 0 0 1 0.244 0c66.784 57.816 109.044 143.204 109.044 238.384 0 174.036-141.296 315.332-315.332 315.332-72.76 0-139.8-24.696-193.18-66.156a14.96 14.96 0 0 1-3.216-19.928l-0.036-0.02a18.172 18.172 0 0 1 26.248-4.452C389.112 756.692 448.088 778 512 778c155.64 0 282-126.36 282-282 0-75.284-29.564-143.716-77.704-194.312z" fill="#FFBA58" p-id="5513"></path><path d="M496.016 347.784a19.664 19.664 0 0 1 31.968 0l52.38 73.068a19.668 19.668 0 0 0 10.028 7.284l85.676 27.236a19.668 19.668 0 0 1 9.88 30.404l-53.308 72.396a19.668 19.668 0 0 0-3.828 11.788l0.572 89.896a19.668 19.668 0 0 1-25.864 18.792l-85.324-28.324a19.656 19.656 0 0 0-12.392 0l-85.324 28.324a19.664 19.664 0 0 1-25.864-18.792l0.572-89.896a19.668 19.668 0 0 0-3.828-11.788l-53.308-72.396a19.668 19.668 0 0 1 9.88-30.404l85.676-27.236a19.668 19.668 0 0 0 10.028-7.284l52.38-73.068z" fill="#FA7F4B" p-id="5514"></path><path d="M496.016 327.004a19.664 19.664 0 0 1 31.968 0l52.38 73.068a19.668 19.668 0 0 0 10.028 7.284l85.676 27.236a19.68 19.68 0 0 1 9.88 30.408l-53.308 72.392a19.668 19.668 0 0 0-3.828 11.788l0.572 89.9a19.664 19.664 0 0 1-25.864 18.792l-85.324-28.328a19.656 19.656 0 0 0-12.392 0l-85.324 28.328a19.668 19.668 0 0 1-25.864-18.792l0.572-89.9a19.668 19.668 0 0 0-3.828-11.788L338.052 465a19.68 19.68 0 0 1 9.88-30.408l85.676-27.236a19.668 19.668 0 0 0 10.028-7.284l52.38-73.068z" fill="#FFBC54" p-id="5515"></path><path d="M338.444 461.512a25.548 25.548 0 0 1 17.3-29.404l76.008-24.16a25.564 25.564 0 0 0 13.02-9.46l46.468-64.82a25.54 25.54 0 0 1 41.52 0l46.468 64.82a25.564 25.564 0 0 0 13.02 9.46l76.008 24.16a25.548 25.548 0 0 1 16.16 33.36c-49.228 10.14-104.98 15.864-164.024 15.864-66.332 0-128.508-7.224-181.948-19.82z" fill="#FFEA8D" p-id="5516"></path><path d="M787.368 557.016a17.312 17.312 0 0 1 21.992-12.948c0.376 0.124 0.752 0.236 1.124 0.356a14.752 14.752 0 0 1 10.016 17.036c-18.42 87.196-72.936 161.14-147.148 205.464a15.988 15.988 0 0 1-21.116-4.48l0.016-0.016a17.24 17.24 0 0 1 5.224-24.844c65.064-39.296 113.004-104.128 129.892-180.568z" fill="#FFED8C" p-id="5517"></path></svg>/5次</button>
-         </div>
+         
+         
                    <div class="draw-qualification" id="drawQualification">
              您当前拥有 0 金币
           </div>
-
+  
+          
         
 
         <!-- 控制区域 - 底部固定 -->
@@ -3143,32 +3464,44 @@
             function updateDrawCardsDisplay() {
                 const drawPlaceholder = document.getElementById('drawPlaceholder');
                 const drawButtons = document.getElementById('drawButtons');
+                const verificationSection = document.querySelector('.verification-section');
+                const drawOptionsSection = document.querySelector('.draw-options-section');
                 
                 if (isVerified && currentUser) {
-                    // 验证成功，显示抽奖提示并显示按钮
+                    // 验证成功，显示抽奖提示并显示抽奖按钮
                     drawPlaceholder.innerHTML = `
                         <div class="placeholder-icon">🎯</div>
                         <div class="placeholder-text">点击下方按钮开始抽奖</div>
                         <div class="placeholder-subtext">选择抽奖次数，赢取丰厚奖品</div>
+
                     `;
-                    // 显示抽奖按钮
+                    // 显示抽奖按钮区域
                     if (drawButtons) {
                         drawButtons.style.display = 'flex';
                     }
+                    // 隐藏验证区域，显示抽奖选项区域
+                    if (verificationSection) {
+                        verificationSection.style.display = 'none';
+                    }
+                    if (drawOptionsSection) {
+                        drawOptionsSection.style.display = 'flex';
+                    }
                 } else {
-                    // 未验证，显示验证表单并隐藏按钮
+                    // 未验证，显示验证表单
                     drawPlaceholder.innerHTML = `
                         <div class="placeholder-icon">🔐</div>
                         <div class="placeholder-text">请输入验证码</div>
-                        <div class="placeholder-subtext">验证身份后即可开始抽奖</div>
-                                                 <div class="verification-form" id="verificationForm">
-                             <input type="text" id="verificationCode" placeholder="请输入验证码" class="verification-input" maxlength="8" onkeypress="handleKeyPress(event)" oninput="limitInput(this)">
-                             <button onclick="handleVerification()" class="verification-btn">验证身份</button>
-                         </div>
+                       
                     `;
-                    // 隐藏抽奖按钮
+                    // 显示验证区域，隐藏抽奖选项区域
                     if (drawButtons) {
-                        drawButtons.style.display = 'none';
+                        drawButtons.style.display = 'flex';
+                    }
+                    if (verificationSection) {
+                        verificationSection.style.display = 'flex';
+                    }
+                    if (drawOptionsSection) {
+                        drawOptionsSection.style.display = 'none';
                     }
                 }
              }
