@@ -62,38 +62,81 @@
         }
         
         body.keyboard-open .game-machine {
-            transform: scale(0.9);
-            transform-origin: center top;
+            transform: none;
+            min-height: 350px;
+            margin: 0 15px 15px;
         }
         
         body.keyboard-open .draw-qualification {
-            bottom: 1%;
-            font-size: 0.7rem;
+            position: relative;
+            bottom: auto;
+            margin-top: 10px;
+            font-size: 0.8rem;
         }
         
         body.keyboard-open .controls {
-            bottom: 5%;
+            position: relative;
+            bottom: auto;
+            margin-top: 10px;
         }
         
         body.keyboard-open .user-info-bar {
-            top: 2%;
+            top: 3%;
         }
         
         body.keyboard-open .main-screen {
-            top: 10%;
-            height: 40%;
+            top: 15%;
+            height: 35%;
         }
         
         body.keyboard-open .draw-buttons {
-            bottom: 20%;
+            position: relative;
+            bottom: auto;
+            margin-top: 10px;
         }
         
         /* 输入框获得焦点时的样式 */
         .verification-input:focus,
         .address-input:focus,
         .address-textarea:focus {
-            transform: translateY(-10px);
-            transition: transform 0.3s ease;
+            transform: none;
+            transition: none;
+        }
+        
+        /* 键盘调起时的更稳定布局 */
+        body.keyboard-open .game-machine {
+            position: relative;
+            transform: none;
+            min-height: 300px;
+            margin: 0 15px 10px;
+            padding: 15px 0;
+        }
+        
+        body.keyboard-open .draw-qualification {
+            position: static;
+            margin: 10px 0;
+            padding: 5px 0;
+        }
+        
+        body.keyboard-open .controls {
+            position: static;
+            margin: 10px 0;
+            justify-content: center;
+        }
+        
+        body.keyboard-open .draw-buttons {
+            position: static;
+            margin: 10px 0;
+            justify-content: center;
+        }
+        
+        /* 确保键盘调起时内容不被压缩 */
+        body.keyboard-open .main-screen {
+            position: relative;
+            top: auto;
+            height: auto;
+            min-height: 200px;
+            margin: 10px 0;
         }
 
         /* 音效控制按钮样式 */
@@ -4074,26 +4117,25 @@
              
              // 处理键盘调起时的视口调整
              function handleKeyboardAdjustment() {
-                 const isKeyboardOpen = window.innerHeight < window.outerHeight * 0.8;
+                 const isKeyboardOpen = window.innerHeight < window.outerHeight * 0.7;
                  const body = document.body;
                  
                  if (isKeyboardOpen) {
-                     // 键盘调起时，调整视口高度
-                     const viewport = document.querySelector('meta[name="viewport"]');
-                     if (viewport) {
-                         viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, height=device-height');
-                     }
-                     
-                     // 添加键盘调起时的样式类
+                     // 键盘调起时，保持原始视口设置，只添加样式类
                      body.classList.add('keyboard-open');
-                 } else {
-                     // 键盘收起时，恢复原始视口设置
-                     const viewport = document.querySelector('meta[name="viewport"]');
-                     if (viewport) {
-                         viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-                     }
                      
-                     // 移除键盘调起时的样式类
+                     // 滚动到输入框位置
+                     const activeInput = document.querySelector('input:focus, textarea:focus');
+                     if (activeInput) {
+                         setTimeout(() => {
+                             activeInput.scrollIntoView({ 
+                                 behavior: 'smooth', 
+                                 block: 'center' 
+                             });
+                         }, 100);
+                     }
+                 } else {
+                     // 键盘收起时，移除样式类
                      body.classList.remove('keyboard-open');
                  }
              }
