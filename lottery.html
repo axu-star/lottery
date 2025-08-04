@@ -1299,11 +1299,25 @@
             width: 100%;
             box-shadow: 0 1vw 4vw rgba(255, 71, 87, 0.3);
             transition: all 0.3s ease;
+            animation: breathing 2s ease-in-out infinite;
         }
 
         .shopping-btn:hover {
             transform: translateY(-0.5vw);
             box-shadow: 0 1.5vw 5vw rgba(255, 71, 87, 0.4);
+            animation: none;
+        }
+        
+        /* 呼吸效果动画 */
+        @keyframes breathing {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 1vw 4vw rgba(255, 71, 87, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 1.5vw 6vw rgba(255, 71, 87, 0.5);
+            }
         }
 
         /* 动画效果 */
