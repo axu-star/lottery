@@ -2253,34 +2253,29 @@
         
         .lottery-record-info {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
+            gap: 8px;
             flex: 1;
         }
         
-        .lottery-record-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
+        .lottery-record-prize {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2d3748;
+            line-height: 1.3;
         }
         
-        .lottery-record-icon::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
-            border-radius: 12px;
+        .lottery-record-time {
+            font-size: 0.9rem;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .lottery-record-time strong {
+            color: #2d3748;
+            font-weight: 600;
         }
         
         .lottery-record-details h4 {
@@ -2346,6 +2341,51 @@
         .lottery-record-status.completed {
             background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             color: white;
+        }
+        
+        /* 抽奖数显示样式 */
+        .lottery-record-amount {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 12px;
+            min-width: 60px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 根据prize_type设置不同颜色，越小越稀有，颜色越亮 */
+        .lottery-record-amount.prize-1 {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #744210;
+            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
+        }
+        
+        .lottery-record-amount.prize-2 {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(255, 107, 107, 0.4);
+        }
+        
+        .lottery-record-amount.prize-3 {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(78, 205, 196, 0.4);
+        }
+        
+        .lottery-record-amount.prize-4 {
+            background: linear-gradient(135deg, #45b7d1 0%, #96c93d 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(69, 183, 209, 0.4);
+        }
+        
+        .lottery-record-amount.prize-5 {
+            background: linear-gradient(135deg, #a8a8a8 0%, #c0c0c0 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(168, 168, 168, 0.4);
         }
         
         .lottery-record-status.special {
@@ -4085,20 +4125,15 @@
                         <div class="lottery-record-item">
                             <div class="lottery-record-header">
                                 <div class="lottery-record-info">
-                                    <div class="lottery-record-icon">
-                                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">${icon}</div>
+                                    <div class="lottery-record-prize">
+                                        抽奖奖励
                                     </div>
-                                    <div class="lottery-record-details">
-                                        ${record.earned_coins > 0 ? `<div class="detail-item">
-                                            <strong>获得：</strong>${record.earned_coins}💰
-                                        </div>` : ''}
+                                    <div class="lottery-record-time">
+                                        ${record.draw_time}
                                     </div>
                                 </div>
-                                <div class="lottery-record-status ${statusClass}">${statusText}</div>
-                            </div>
-                            <div class="lottery-record-content">
-                                <div class="detail-item">
-                                    <strong>抽奖时间：</strong>${record.draw_time}
+                                <div class="lottery-record-amount prize-${record.prize_type}">
+                                    +${record.earned_coins || 0}
                                 </div>
                             </div>
                         </div>
@@ -4648,3 +4683,4 @@
     </div><!-- 移动端容器结束 -->
 </body>
 </html> 
+
