@@ -3635,7 +3635,7 @@
                                 </div>
                                 <div class="prize-amount">+${prize.earned_coins || 0}</div>
                                 <div class="prize-name">${prize.prize_name}</div>
-                                ${prize.is_special ? '<div class="special-badge">特殊奖励</div>' : ''}
+                                ${prize.is_special ? '<div class="special-badge">特等奖</div>' : ''}
                             </div>
                         </div>
                     `;
@@ -3701,7 +3701,7 @@
             // 特殊奖励覆盖
             if (prize.is_special) {
                 config.icon = '⭐';
-                config.typeText = '特殊奖励';
+                config.typeText = '特等奖';
                 config.rarityClass = 'special';
                 config.color = '#ff6b6b';
             }
@@ -3737,7 +3737,7 @@
                             </div>
                             <div class="prize-amount">+${randomPrize.earned_coins || 0}</div>
                             <div class="prize-name">${randomPrize.prize_name}</div>
-                            ${randomPrize.is_special ? '<div class="special-badge">特殊奖励</div>' : ''}
+                            ${randomPrize.is_special ? '<div class="special-badge">特等奖</div>' : ''}
                         </div>
                     </div>
                 `;
@@ -3774,7 +3774,7 @@
                 { prize_name: "10金币", earned_coins: 10, prize_type: 4, is_special: false },
                 { prize_name: "5金币", earned_coins: 5, prize_type: 5, is_special: false },
                 { prize_name: "100金币", earned_coins: 100, prize_type: 2, is_special: false },
-                { prize_name: "特殊奖励", earned_coins: 200, prize_type: 1, is_special: true }
+                { prize_name: "特等奖", earned_coins: 200, prize_type: 1, is_special: true }
             ];
             
             return prizeTypes[Math.floor(Math.random() * prizeTypes.length)];
@@ -4442,7 +4442,7 @@
                 }
                 
                 const recordsHTML = records.map(record => {
-                    const statusText = record.is_special ? '特殊奖励' : '普通金币';
+                    const statusText = record.is_special ? '特等奖' : '普通金币';
                     const statusClass = record.is_special ? 'special' : 'completed';
                     
                     // 根据奖品类型显示不同的图标
