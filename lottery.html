@@ -97,7 +97,7 @@
         body.keyboard-open .draw-cards {
             height: auto;
             min-height: 200px;
-            margin-bottom: 15px;
+          
         }
 
         body.keyboard-open .draw-placeholder {
@@ -393,7 +393,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            margin-bottom: 2vw;
+           
         }
 
         /* 抽奖占位符 - 优化样式 */
@@ -1410,7 +1410,7 @@
             
             .draw-cards {
                 height: 60%;
-                margin-bottom: 1.5vw;
+           
                 min-height: 200px;
             }
             
@@ -1461,7 +1461,7 @@
             
             .draw-cards {
                 height: 55%;
-                margin-bottom: 1vw;
+            
                 min-height: 180px;
             }
             
@@ -1506,6 +1506,89 @@
             }
             60% {
                 transform: translateY(-1.3vw);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+        }
+
+        /* 响应式优化 */
+        @media (max-width: 480px) {
+            .prize-icon {
+                font-size: 4vw;
+            }
+            
+            .prize-name {
+                font-size: 2.2vw;
+            }
+            
+            .prize-amount {
+                font-size: 2.8vw;
+            }
+            
+            .prize-type {
+                font-size: 1.5vw;
+            }
+            
+            .special-badge {
+                font-size: 1.2vw;
+            }
+            
+            .card-question {
+                font-size: 5vw;
+            }
+            
+            .card-hint {
+                font-size: 2vw;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .prize-icon {
+                font-size: 5vw;
+            }
+            
+            .prize-name {
+                font-size: 2.5vw;
+            }
+            
+            .prize-amount {
+                font-size: 3.2vw;
+            }
+            
+            .prize-type {
+                font-size: 1.8vw;
+            }
+            
+            .special-badge {
+                font-size: 1.5vw;
+            }
+            
+            .card-question {
+                font-size: 6vw;
+            }
+            
+            .card-hint {
+                font-size: 2.5vw;
             }
         }
 
@@ -1603,11 +1686,33 @@
             align-items: center;
             justify-content: center;
             border-radius: 2.5vw;
+            overflow: hidden;
         }
 
         .draw-card-front {
             background: linear-gradient(145deg, #ffd700, #ffed4e);
             color: #ff4757;
+        }
+
+        .card-front-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .card-question {
+            font-size: 4vw;
+            font-weight: bold;
+            margin-bottom: 1vw;
+            animation: pulse 2s infinite;
+        }
+
+        .card-hint {
+            font-size: 1.5vw;
+            opacity: 0.8;
+            font-weight: 500;
         }
 
         .draw-card-back {
@@ -1617,6 +1722,227 @@
             font-size: 2vw;
             text-align: center;
             padding: 1.3vw;
+        }
+
+        .card-back-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .prize-icon {
+            font-size: 3vw;
+            margin-bottom: 1vw;
+            animation: bounce 1s ease-in-out;
+        }
+
+        .prize-name {
+            font-size: 1.8vw;
+            font-weight: bold;
+            margin-bottom: 0.5vw;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .prize-amount {
+            font-size: 2.2vw;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            margin-bottom: 0.5vw;
+        }
+
+        .prize-type {
+            font-size: 1.2vw;
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3vw 0.8vw;
+            border-radius: 1vw;
+            backdrop-filter: blur(5px);
+        }
+
+        .special-badge {
+            position: absolute;
+            top: 0.5vw;
+            right: 0.5vw;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            font-size: 1vw;
+            padding: 0.3vw 0.6vw;
+            border-radius: 0.8vw;
+            font-weight: bold;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        /* 不同稀有度的卡片样式 */
+        .draw-card-back.legendary {
+            background: linear-gradient(145deg, #ffd700, #ffed4e);
+            color: #333;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .draw-card-back.epic {
+            background: linear-gradient(145deg, #c0c0c0, #e5e5e5);
+            color: #333;
+            box-shadow: 0 0 15px rgba(192, 192, 192, 0.6);
+        }
+
+        .draw-card-back.rare {
+            background: linear-gradient(145deg, #cd7f32, #daa520);
+            color: white;
+            box-shadow: 0 0 12px rgba(205, 127, 50, 0.6);
+        }
+
+        .draw-card-back.common {
+            background: linear-gradient(145deg, #4ecdc4, #44a08d);
+            color: white;
+        }
+
+        .draw-card-back.special {
+            background: linear-gradient(145deg, #ff6b6b, #ee5a24);
+            color: white;
+            box-shadow: 0 0 25px rgba(255, 107, 107, 0.8);
+        }
+
+        /* 金币飞入动画样式 */
+        .coin-animation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6);
+            animation: coinFloat 0.5s ease-out;
+        }
+
+        .coin-text {
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .coin-icon {
+            font-size: 16px;
+        }
+
+        @keyframes coinFloat {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        /* 抽奖结果统计样式 */
+        .draw-summary {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            z-index: 1000;
+            animation: summarySlideIn 0.5s ease-out;
+        }
+
+        .summary-content {
+            text-align: center;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .summary-stats {
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 5px 0;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .stat-value.coins {
+            color: #ffd700;
+        }
+
+        .stat-value.rare {
+            color: #cd7f32;
+        }
+
+        .stat-value.special {
+            color: #ff6b6b;
+        }
+
+        .summary-message {
+            font-size: 0.9rem;
+            color: #333;
+            font-style: italic;
+        }
+
+        @keyframes summarySlideIn {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* 响应式优化统计样式 */
+        @media (max-width: 480px) {
+            .draw-summary {
+                padding: 15px;
+                border-radius: 15px;
+            }
+            
+            .summary-title {
+                font-size: 1.2rem;
+            }
+            
+            .stat-value {
+                font-size: 0.9rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
         }
 
         /* 状态显示 - 主屏幕内 */
@@ -1739,7 +2065,7 @@
 
             .draw-cards {
                 height: 60%;
-                margin-bottom: 1.5vw;
+              
                 min-height: 200px;
             }
 
@@ -1805,7 +2131,7 @@
 
             .draw-cards {
                 height: 55%;
-                margin-bottom: 1vw;
+                
                 min-height: 180px;
             }
 
@@ -3382,71 +3708,278 @@
               }
           }
           
-          // 显示抽奖结果
-          function showDrawResults(prizes, container) {
-              prizes.forEach((prize, index) => {
-                  setTimeout(() => {
-                      const card = document.createElement('div');
-                      card.className = 'draw-card';
-                      
-                      card.innerHTML = `
-                          <div class="draw-card-front">?</div>
-                          <div class="draw-card-back">${prize.prize_name || prize}</div>
-                      `;
-                      container.appendChild(card);
-                      
-                      // 延迟翻转卡片 - 确保至少等待1秒再翻转
-                      setTimeout(() => {
-                          card.classList.add('flipped');
-                          
-                          // 播放翻转音效
-                          playSound('flip');
-                          
-                          // 翻转后再添加金色边框样式（如果是好奖品）
-                          if (prize.prize_type <= 3) {
-                              card.classList.add('golden-prize');
-                              // 播放中奖音效
-                              playSound('win');
-                          }
-                      }, 1000 + index * 500);
-                  }, index * 200);
-              });
-          }
+                  // 显示抽奖结果
+        function showDrawResults(prizes, container) {
+            prizes.forEach((prize, index) => {
+                setTimeout(() => {
+                    const card = document.createElement('div');
+                    card.className = 'draw-card';
+                    
+                    // 根据奖品类型设置不同的样式和图标
+                    const prizeConfig = getPrizeConfig(prize);
+                    
+                    card.innerHTML = `
+                        <div class="draw-card-front">
+                            <div class="card-front-content">
+                                <div class="card-question">?</div>
+                                <div class="card-hint">好运连连</div>
+                            </div>
+                        </div>
+                        <div class="draw-card-back ${prizeConfig.rarityClass}">
+                            <div class="card-back-content">
+                                <div class="prize-icon">${prizeConfig.icon}</div>
+                                <div class="prize-name">${prize.prize_name}</div>
+                                <div class="prize-amount">+${prize.earned_coins || 0}</div>
+                                <div class="prize-type">${prizeConfig.typeText}</div>
+                                ${prize.is_special ? '<div class="special-badge">特殊奖励</div>' : ''}
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                    
+                    // 延迟翻转卡片 - 确保至少等待1秒再翻转
+                    setTimeout(() => {
+                        card.classList.add('flipped');
+                        
+                        // 播放翻转音效
+                        playSound('flip');
+                        
+                        // 根据奖品稀有度添加特效
+                        if (prize.prize_type <= 3 || prize.is_special) {
+                            card.classList.add('golden-prize');
+                            // 播放中奖音效
+                            playSound('win');
+                        }
+                        
+                        // 添加金币飞入动画
+                        if (prize.earned_coins > 0) {
+                            showCoinAnimation(prize.earned_coins, card);
+                        }
+                    }, 1000 + index * 500);
+                }, index * 200);
+            });
+            
+            // 显示抽奖结果统计
+            setTimeout(() => {
+                showDrawSummary(prizes);
+            }, 1000 + prizes.length * 500 + 1000);
+        }
+        
+        // 显示抽奖结果统计
+        function showDrawSummary(prizes) {
+            const totalCoins = prizes.reduce((sum, prize) => sum + (prize.earned_coins || 0), 0);
+            const specialPrizes = prizes.filter(prize => prize.is_special).length;
+            const rarePrizes = prizes.filter(prize => prize.prize_type <= 3).length;
+            
+            const summary = document.createElement('div');
+            summary.className = 'draw-summary';
+            summary.innerHTML = `
+                <div class="summary-content">
+                    <div class="summary-title">🎉 抽奖完成</div>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">总收益:</span>
+                            <span class="stat-value coins">+${totalCoins} 🪙</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">稀有奖品:</span>
+                            <span class="stat-value rare">${rarePrizes} 个</span>
+                        </div>
+                        ${specialPrizes > 0 ? `
+                        <div class="stat-item">
+                            <span class="stat-label">特殊奖励:</span>
+                            <span class="stat-value special">${specialPrizes} 个</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                    <div class="summary-message">
+                        ${totalCoins > 0 ? '恭喜获得金币奖励！' : '继续努力，下次一定中奖！'}
+                    </div>
+                </div>
+            `;
+            
+            // 添加到抽奖区域
+            const drawCards = document.getElementById('drawCards');
+            drawCards.appendChild(summary);
+            
+            // 3秒后自动移除
+            setTimeout(() => {
+                if (summary.parentNode) {
+                    summary.parentNode.removeChild(summary);
+                }
+            }, 3000);
+        }
+        
+        // 获取奖品配置
+        function getPrizeConfig(prize) {
+            const configs = {
+                1: { // 一等奖
+                    icon: '🏆',
+                    typeText: '一等奖',
+                    rarityClass: 'legendary',
+                    color: '#ffd700'
+                },
+                2: { // 二等奖
+                    icon: '🥈',
+                    typeText: '二等奖',
+                    rarityClass: 'epic',
+                    color: '#c0c0c0'
+                },
+                3: { // 三等奖
+                    icon: '🥉',
+                    typeText: '三等奖',
+                    rarityClass: 'rare',
+                    color: '#cd7f32'
+                },
+                4: { // 四等奖
+                    icon: '💰',
+                    typeText: '四等奖',
+                    rarityClass: 'common',
+                    color: '#4ecdc4'
+                },
+                5: { // 五等奖
+                    icon: '🪙',
+                    typeText: '五等奖',
+                    rarityClass: 'common',
+                    color: '#95a5a6'
+                }
+            };
+            
+            const config = configs[prize.prize_type] || configs[5];
+            
+            // 特殊奖励覆盖
+            if (prize.is_special) {
+                config.icon = '⭐';
+                config.typeText = '特殊奖励';
+                config.rarityClass = 'special';
+                config.color = '#ff6b6b';
+            }
+            
+            return config;
+        }
+        
+        // 显示金币飞入动画
+        function showCoinAnimation(coins, card) {
+            const animation = document.createElement('div');
+            animation.className = 'coin-animation';
+            animation.innerHTML = `
+                <div class="coin-text">+${coins}</div>
+                <div class="coin-icon">🪙</div>
+            `;
+            
+            // 设置动画起始位置（卡片中心）
+            const cardRect = card.getBoundingClientRect();
+            animation.style.cssText = `
+                position: fixed;
+                left: ${cardRect.left + cardRect.width / 2}px;
+                top: ${cardRect.top + cardRect.height / 2}px;
+                z-index: 10000;
+                pointer-events: none;
+            `;
+            
+            document.body.appendChild(animation);
+            
+            // 飞向用户信息栏
+            setTimeout(() => {
+                const userInfoBar = document.querySelector('.user-info-bar');
+                if (userInfoBar) {
+                    const barRect = userInfoBar.getBoundingClientRect();
+                    animation.style.transition = 'all 1s ease-out';
+                    animation.style.left = `${barRect.left + barRect.width / 2}px`;
+                    animation.style.top = `${barRect.top + barRect.height / 2}px`;
+                    animation.style.transform = 'scale(0.5)';
+                    animation.style.opacity = '0';
+                }
+                
+                // 动画结束后移除元素
+                setTimeout(() => {
+                    if (animation.parentNode) {
+                        animation.parentNode.removeChild(animation);
+                    }
+                }, 1000);
+            }, 100);
+        }
           
-          // 备用抽奖结果（当API不可用时）
-          function showBackupDrawResults(times, container) {
-              const cards = [];
-              for (let i = 0; i < times; i++) {
-                  const card = document.createElement('div');
-                  card.className = 'draw-card';
-                  
-                  card.innerHTML = `
-                      <div class="draw-card-front">?</div>
-                      <div class="draw-card-back">${getRandomPrize()}</div>
-                  `;
-                  container.appendChild(card);
-                  cards.push(card);
-              }
-              
-              // 延迟翻转卡片 - 确保至少等待1秒再翻转
-              setTimeout(() => {
-                  cards.forEach((card, index) => {
-                      setTimeout(() => {
-                          card.classList.add('flipped');
-                          
-                          // 播放翻转音效
-                          playSound('flip');
-                          
-                          // 翻转后再随机添加金色边框（模拟好奖品）
-                          if (Math.random() > 0.7) { // 30%概率获得金色边框
-                              card.classList.add('golden-prize');
-                              // 播放中奖音效
-                              playSound('win');
-                          }
-                      }, 1000 + index * 500);
-                  });
-              }, 1000);
-          }
+                  // 备用抽奖结果（当API不可用时）
+        function showBackupDrawResults(times, container) {
+            const cards = [];
+            for (let i = 0; i < times; i++) {
+                const card = document.createElement('div');
+                card.className = 'draw-card';
+                
+                // 生成随机奖品数据
+                const randomPrize = getRandomPrizeData();
+                const prizeConfig = getPrizeConfig(randomPrize);
+                
+                card.innerHTML = `
+                    <div class="draw-card-front">
+                        <div class="card-front-content">
+                            <div class="card-question">?</div>
+                            <div class="card-hint">点击查看</div>
+                        </div>
+                    </div>
+                    <div class="draw-card-back ${prizeConfig.rarityClass}">
+                        <div class="card-back-content">
+                            <div class="prize-icon">${prizeConfig.icon}</div>
+                            <div class="prize-name">${randomPrize.prize_name}</div>
+                            <div class="prize-amount">+${randomPrize.earned_coins || 0}</div>
+                            <div class="prize-type">${prizeConfig.typeText}</div>
+                            ${randomPrize.is_special ? '<div class="special-badge">特殊奖励</div>' : ''}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+                cards.push(card);
+            }
+            
+            // 延迟翻转卡片 - 确保至少等待1秒再翻转
+            setTimeout(() => {
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('flipped');
+                        
+                        // 播放翻转音效
+                        playSound('flip');
+                        
+                        // 根据奖品稀有度添加特效
+                        const randomPrize = getRandomPrizeData();
+                        if (randomPrize.prize_type <= 3 || randomPrize.is_special) {
+                            card.classList.add('golden-prize');
+                            // 播放中奖音效
+                            playSound('win');
+                        }
+                        
+                        // 添加金币飞入动画
+                        if (randomPrize.earned_coins > 0) {
+                            showCoinAnimation(randomPrize.earned_coins, card);
+                        }
+                    }, 1000 + index * 500);
+                });
+            }, 1000);
+            
+            // 显示抽奖结果统计（备用）
+            setTimeout(() => {
+                const backupPrizes = [];
+                for (let i = 0; i < times; i++) {
+                    backupPrizes.push(getRandomPrizeData());
+                }
+                showDrawSummary(backupPrizes);
+            }, 1000 + times * 500 + 1000);
+        }
+        
+        // 生成随机奖品数据（备用）
+        function getRandomPrizeData() {
+            const prizeTypes = [
+                { prize_name: "50金币", earned_coins: 50, prize_type: 3, is_special: false },
+                { prize_name: "20金币", earned_coins: 20, prize_type: 4, is_special: false },
+                { prize_name: "10金币", earned_coins: 10, prize_type: 4, is_special: false },
+                { prize_name: "5金币", earned_coins: 5, prize_type: 5, is_special: false },
+                { prize_name: "100金币", earned_coins: 100, prize_type: 2, is_special: false },
+                { prize_name: "特殊奖励", earned_coins: 200, prize_type: 1, is_special: true }
+            ];
+            
+            return prizeTypes[Math.floor(Math.random() * prizeTypes.length)];
+        }
 
                    // 获取随机奖品
          function getRandomPrize() {
@@ -4683,4 +5216,3 @@
     </div><!-- 移动端容器结束 -->
 </body>
 </html> 
-
